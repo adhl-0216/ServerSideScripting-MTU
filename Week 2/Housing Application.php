@@ -13,4 +13,4 @@ switch ($cost)
         $allowance = $cost*.08;
 }
 
-echo "The cost is &euro;{$cost} and your allowance is &euro;{$allowance}";
+echo "The cost is &euro;$cost and your allowance is &euro;$allowance";
