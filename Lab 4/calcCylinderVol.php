@@ -1,7 +1,7 @@
 <?php
-    $radius = $_GET['r'];
-    $height = $_GET['h'];
-    $volume = 0;
+    $radius = (int)$_GET['r'];
+    $height = (int)$_GET['h'];
+    $volume = 0.0;
 
 //    function calCylinderVol($radius, $height, &$volume)
 //    {

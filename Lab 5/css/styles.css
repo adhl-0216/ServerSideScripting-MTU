@@ -1,0 +1,11 @@
+
+h1 {font-size:16pt; font-family:courier; color:#fff}
+p {color: #000;}
+body {color:black;background-color: #ccc}
+td{text-align:center}
+tr, td{
+    border: 1px black solid;
+}
+table{
+    border-collapse: collapse;
+}
