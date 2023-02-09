@@ -1,0 +1,13 @@
+//simple direct messaging system
+
+//sending message
+
+generate GUI
+
+post message to database
+
+//receiving message
+
+DM webpage onload > get all message where recipient == user
+
+retrieve message
