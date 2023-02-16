@@ -2,12 +2,26 @@
 
 //sending message
 
-generate GUI
+generate HTML
 
-post message to database
+user enters message
+
+post message as json '{'sender': userid1, 'receiver': userid2, 'message':'hello'}'
+
+//backend receives message
+
+receive json via file_get_contents('php://input');
+
+decode string via json_decode()
+
+insert into database
+
+post message to receiver as json
 
 //receiving message
 
-DM webpage onload > get all message where recipient == user
+receive json via file_get_contents('php://input');
 
-retrieve message
+decode string via json_decode()
+
+generate HTML
