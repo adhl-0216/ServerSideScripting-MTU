@@ -1,11 +1,15 @@
 <input type="button" value="redirect" onclick="window.location.href ='cURLReceive.php'">
 <?php
 $url = 'Final Project/cURLReceive.php';
-$json = '{
-    "sender":"user1",
-    "receiver":"user2",
-    "message":"hello"
-}';
+$data = [
+        [
+    "sender"=>"user1",
+    "receiver"=>"user2",
+    "message"=>"hello"
+]
+];
+
+$json = json_encode($data);
 
 $crl = curl_init($url);
 curl_setopt($crl, CURLOPT_POST, 1);
