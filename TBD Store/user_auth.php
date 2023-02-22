@@ -12,6 +12,7 @@ if (isset($_POST['submit'])){
     if ($_POST['username'] == $user1->username || $_POST['username'] == $user1->email){
         if (!password_verify($_POST['password'], $user1->password)){echo 'invalid password'; return;}
         echo 'valid credentials<br>';
+        header("Location: homepage.php");
         return;
     }
 }
