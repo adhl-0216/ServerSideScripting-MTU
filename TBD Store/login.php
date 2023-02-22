@@ -29,16 +29,14 @@ $(document).ready(function() {
             data: $(this).serialize(),
             success: function (response) {
                 let jsonData = JSON.parse(response);
-                alert("ajax success");
-                if (jsonData.success === false) {
-                    alert('Invalid Credentials!');
-                } else {
+                if (jsonData.validCred === true) {
                     alert('Access Granted!');
                     window.location.href = 'homepage.php';
+                } else {
+                    alert('Invalid Credentials!');
                 }
             }
         });
-        alert("hmmm");
     });
 });
 </script>
