@@ -7,6 +7,7 @@ $(document).ready(function() {
             data: $(this).serialize(),
             success: function (response) {
                 let jsonData = JSON.parse(response);
+                // alert (response);
                 if (jsonData.validCred === true) {
                     alert('Access Granted!');
                     window.location.href = '.homepage.php';
