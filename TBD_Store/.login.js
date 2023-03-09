@@ -10,7 +10,7 @@ $(document).ready(function() {
                 // alert (response);
                 if (jsonData.validCred === true) {
                     alert('Access Granted!');
-                    window.location.href = '.homepage.php';
+                    window.location.href = 'homepage.php';
                 } else {
                     alert('Invalid Credentials!');
                 }
