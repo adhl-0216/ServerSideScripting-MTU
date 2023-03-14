@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Profile</title>
+    <?php
+    session_start();
+    $username = $_SESSION['var'];
+    ?>
 </head>
 <body>
 <form method="post" action=".terminateUser.php">
-    <input type="hidden" name="userID" value="1">
+    <input type="hidden" name="username" value="<?php echo $username?>">
     <input type="submit" name="terminateUser" value="TERMINATE ACCOUNT">
 </form>
 </body>
+
 </html>
+

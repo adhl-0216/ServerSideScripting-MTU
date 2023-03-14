@@ -11,11 +11,11 @@ class User
      * @param $password
      * @param $email
      */
-    public function __construct($username, $email, $password)
+    public function __construct($email, $password, $username)
     {
-        $this->setUsername($username);
-        $this->setPassword($password);
         $this->setEmail($email);
+        $this->setPassword($password);
+        $this->setUsername($username);
     }
 
     /**
@@ -70,7 +70,6 @@ class User
     {
         $pdo = new PDO('mysql:host=localhost;dbname=tbd_store;charset=utf8','root','');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//        echo $pdo->getAttribute(PDO::ATTR_CONNECTION_STATUS);
     }
 
     public function sqlInsert()
@@ -86,13 +85,15 @@ class User
         $stmt->bindValue(':password', password_hash($this->getPassword(),'2y'));
         $stmt->bindValue(':username', $this->getUsername());
         $stmt->execute();
+
+        return $stmt->rowCount();
     }
 
-    public static function verify_password($username, $email, $password): bool
+    public static function verify_login($username, $email, $password): bool
     {
         self::sqlConnect($pdo);
-        $sqlSelectById = 'SELECT USER_PASSWORD FROM users WHERE (USER_NAME=:username OR USER_EMAIL=:email)';
-        $stmt = $pdo->prepare($sqlSelectById);
+        $sqlSelectByUsername = 'SELECT USER_PASSWORD FROM users WHERE (USER_NAME=:username OR USER_EMAIL=:email)';
+        $stmt = $pdo->prepare($sqlSelectByUsername);
         $stmt->bindValue('username', $username);
         $stmt->bindValue('email', $email);
         $stmt->execute();

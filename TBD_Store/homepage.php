@@ -13,3 +13,5 @@ $(document).ready(function(){
 })
 </script>
 <?php
+session_start();
+

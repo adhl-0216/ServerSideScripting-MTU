@@ -4,9 +4,9 @@ if (isset($_POST['terminateUser'])) {
         $pdo = new PDO('mysql:host=localhost;dbname=tbd_store;charset=utf8','root', '');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sqlDelete = 'DELETE FROM users WHERE USER_ID=:userID';
+        $sqlDelete = 'DELETE FROM users WHERE USER_NAME=:username';
         $result = $pdo->prepare($sqlDelete);
-        $result->bindValue(':userID',$_POST['userID']);
+        $result->bindValue(':username',$_POST['userID']);
         $result->execute();
 
         if ($result->rowCount() > 0) {
