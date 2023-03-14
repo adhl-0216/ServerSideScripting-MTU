@@ -6,11 +6,11 @@ $(document).ready(function() {
             url: "user_auth.php",
             data: $(this).serialize(),
             success: function (response) {
-                let jsonData = JSON.parse(response);
                 // alert (response);
-                if (jsonData.validCred === true) {
+                let jsonData = JSON.parse(response);
+                if (jsonData['isValid'] === true) {
                     alert('Access Granted!');
-                    window.location.href = 'homepage.php';
+                    window.location.href = 'homepage.php?uid=' + jsonData['user'];
                 } else {
                     alert('Invalid Credentials!');
                 }

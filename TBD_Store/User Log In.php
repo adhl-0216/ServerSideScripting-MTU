@@ -15,9 +15,8 @@
     <label>Password:
         <input type="password" name="password">
     </label>
-    <input type="submit" value="LOG IN" name="submit">
+    <input type="submit" name="login" value="LOG IN">
 </form>
-
 </body>
-<script src=".login.js"></script>
+<script async src=".login.js"></script>
 </html>

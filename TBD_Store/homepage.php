@@ -8,10 +8,9 @@
 <script>
 $(document).ready(function(){
    $("[name='profile']").click(function (){
-       $(window).attr('location','user_profile.html');
+       let queryString = window.location.href.split('?');
+       window.location.href = "user_profile.php?" + queryString[1];
    })
 })
 </script>
-<?php
-session_start();
 

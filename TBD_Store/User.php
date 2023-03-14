@@ -89,15 +89,15 @@ class User
         return $stmt->rowCount();
     }
 
-    public static function verify_login($username, $email, $password): bool
+    public static function verify_login(&$user, $password): bool
     {
         self::sqlConnect($pdo);
-        $sqlSelectByUsername = 'SELECT USER_PASSWORD FROM users WHERE (USER_NAME=:username OR USER_EMAIL=:email)';
+        $sqlSelectByUsername = 'SELECT USER_PASSWORD, USER_NAME FROM users WHERE (USER_NAME=:user OR USER_EMAIL=:user)';
         $stmt = $pdo->prepare($sqlSelectByUsername);
-        $stmt->bindValue('username', $username);
-        $stmt->bindValue('email', $email);
+        $stmt->bindValue(':user', $user);
         $stmt->execute();
         $row = $stmt->fetch();
+        $user = $row['USER_NAME'];
         return password_verify($password, $row['USER_PASSWORD']);
     }
 }

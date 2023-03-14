@@ -1,16 +1,13 @@
 <?php
 include "User.php";
-if (isset($_POST['login'])){
-    $username = $_POST['username'];
-
-    if (User::verify_login($username,$username,$_POST['password'])){
-        echo json_encode(array('validCred'=>true));
-        session_start();
-        $_SESSION['var'] = $username;
+if (isset($_POST)){
+    $user = $_POST['username'];
+    $psw = $_POST['password'];
+    if (User::verify_login($user,$psw)){
+        echo json_encode(array('isValid'=>true, 'user'=>$user));
         return;
     }
-    echo json_encode(array('validCred'=>false));
-    return;
+    echo json_encode(array('isValid'=>false));
 }
 
 
