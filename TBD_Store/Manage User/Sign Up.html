@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TBD STORE - Sign Up</title>
+</head>
+<style>
+</style>
+<body>
+<h1>New User Sign Up</h1>
+<form action=".insertUsers.php" method="post">
+  <table>
+    <tr><td>USERNAME</td>
+      <td>
+        <label><input type="text" name="USER_NAME" class="userDetails" required></label>
+      </td>
+    </tr>
+
+    <tr><td>EMAIL</td>
+      <td>
+        <label><input type="text" name="USER_EMAIL" class="userDetails" required></label>
+      </td>
+    </tr>
+
+    <tr><td>PASSWORD</td>
+      <td>
+        <label><input type="password" name="USER_PASSWORD" class="userDetails" required></label>
+      </td>
+    </tr>
+  </table>
+
+  <input type="submit" name="signUp" value="Sign Up">
+</form>
+</body>
+</html>

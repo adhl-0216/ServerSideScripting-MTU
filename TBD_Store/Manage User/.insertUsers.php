@@ -9,7 +9,7 @@ if (isset($_POST['signUp'])){
         $newSignUp = new User($_POST['USER_EMAIL'], $_POST['USER_PASSWORD'], $_POST['USER_NAME']);
         $affected = $newSignUp->sqlInsert();
         if ($affected > 0){
-            echo 'success. '.'<a href="User Log In.php">go to login</a>';
+            echo 'success. '. '<a href="Sign In.html">go to login</a>';
         }
     }catch (PDOException $ex) {
         echo $ex->getMessage().'; '.$ex->getTraceAsString();
