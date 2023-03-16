@@ -11,7 +11,6 @@ try {
     $affected->bindValue(':price', $_POST['PRICE']);
     $affected->bindValue(':quantity', $_POST['QUANTITY']);
     $affected->execute();
-//    echo 'success';
 }
 catch (PDOException $ex) {
     echo $ex->getMessage().'; '.$ex->getTraceAsString();

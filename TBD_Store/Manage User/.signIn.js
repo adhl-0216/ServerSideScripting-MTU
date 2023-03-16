@@ -4,8 +4,9 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "user_auth.php",
+            dataType: "json",
             data: $(this).serialize(),
-        }).then(function (response) {
+        }).success(function (response) {
             let jsonData = JSON.parse(response);
             if (jsonData['isValid'] === true) {
                 alert('Access Granted!');

@@ -1,8 +1,7 @@
 $(function (){
     $.ajax({
-        type: "POST",
-        url: ""
-    }).then(function (data) {
+        url: ".selectInventory.php"
+    }).success(function (data) {
         $("#allProducts").append(document.createElement("tr"))
     })
 
