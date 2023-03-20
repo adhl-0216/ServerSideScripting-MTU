@@ -8,7 +8,17 @@
 </head>
 <body>
 <h1>Inventory Management</h1>
-<table id="allProducts"></table>
+<h2>Current Inventory</h2>
+<table id="allProducts">
+    <tr>
+    <th>ID</th>
+    <th>NAME</th>
+    <th>DESC</th>
+    <th>PRICE</th>
+    <th>QUANTITY</th>
+    </tr>
+</table>
+<h2>Add Product</h2>
   <form action=".insertInventory.php" method="post">
     <table id="addProduct">
       <tr><td>PRODUCT ID</td>
