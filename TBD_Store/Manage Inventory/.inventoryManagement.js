@@ -1,5 +1,5 @@
 $(function (){
-    let $refresh = $.ajax("selectInventory.php",
+    let $refresh = $.ajax(".selectInventory.php",
         {
             success: function (data) {
                 let $allInventory = JSON.parse(data);
@@ -18,8 +18,7 @@ $(function (){
     $("[name='INSERT']").click(function (e){
         e.preventDefault();
         // console.log("clicked");
-        let $input = $("table #addProduct").serialize();
-        console.log($input);
+        $("#addProduct").serialize()
         // $.ajax('.insertInventory.php',
         //     {
         //     data: $("table #addProduct").serialize()
