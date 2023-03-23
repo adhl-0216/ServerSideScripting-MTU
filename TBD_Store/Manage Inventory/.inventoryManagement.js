@@ -20,20 +20,37 @@ $(function (){
     let updateInv = function (e){
         let btn = e.target;
         let status = btn.innerText;
-        let cells = btn.parentNode.parentNode.childNodes;
+        let rowIdx = btn.parentNode.parentNode.id;
+        let inputs = $(`#allProducts tr[id="${rowIdx}"] :input:not(button)`);
+
         if (status === "UPDATE"){
             btn.innerText = "DONE";
-            let txtInput = document.createElement("input");
-            txtInput.type = "text";
-            txtInput.value = cells[2].textContent;
-            cells[2].replaceWith(txtInput);
-            console.log(cells[2].textContent);
+            inputs.prop("disabled", false);
+
         }else if (status === "DONE") {
             btn.innerText = "UPDATE";
-            let idk = cells[2].nodeValue;
-            console.log(idk);
-            let prodID = btn.value;
-
+            let postData = {
+                prodID:btn.value,
+                prodName: inputs.eq(0).val(),
+                prodDesc: inputs.eq(1).val(),
+                price: inputs.eq(2).val(),
+                quantity: inputs.eq(3).val()
+            }
+            console.log(postData);
+            $.ajax({
+                url: ".inventorySQL.php",
+                type: "POST",
+                dataType: 'json',
+                data: postData,
+                success: (affectedRows) => {
+                    if (affectedRows > 0) alert(affectedRows + ' row updated.');
+                    refreshTable();
+                },
+                catch: (err) => {
+                    alert(err)
+                }
+            });
+            inputs.prop("disabled", true);
         }
 
     }
@@ -47,14 +64,22 @@ $(function (){
                     if(data === "N/A") return;
                     let allInventory = JSON.parse(data);
                     for (let i = 0; i < allInventory.length; i++) {
+                        let prodID = allInventory[i][1];
                         let tr = document.createElement("tr");
+                        tr.id = prodID;
                         for (let j = 0; j < 7; j++) { //hardcode
                             let td = document.createElement("td");
-                            td.innerText = allInventory[i][j];
+                            if(j < 2 || j === 4 ) td.innerText = allInventory[i][j];
+                            else {
+                                let inpTxt = document.createElement("input");
+                                inpTxt.type = "text";
+                                inpTxt.disabled = true;
+                                inpTxt.value = allInventory[i][j];
+                                td.append(inpTxt);
+                            }
                             tr.append(td);
                         }
                         let colOptions = document.createElement("td");
-                        let prodID = allInventory[i][1];
                         let btnDelete = document.createElement("button");
                         btnDelete.className = "btnDelete";
                         btnDelete.innerText = "DELETE";

@@ -85,4 +85,36 @@ function deleteInventory()
     }
 }
 
-if ($status == "delete") deleteInventory();
+if ($status == "delete") try {
+    deleteInventory();
+} catch (ErrorException $e) {
+}
+
+function updateInventory()
+{
+    try {
+        if (isset($_POST['data'])) {
+            $data = $_POST['data'];
+            $pdo = getConnection();
+            $sqlUpdateInv = 'UPDATE tbd_store.inventory SET PRODUCT_NAME=:prodName, PRODUCT_DESCRIPTION=:prodDesc, PRICE=:price, QUANTITY=:quantity WHERE PRODUCT_ID=:prodID';
+            $pStmt = $pdo->prepare($sqlUpdateInv);
+            $pStmt->bindValue(':prodName', $data['prodName']);
+            $pStmt->bindValue(':prodDesc', $data['prodDesc']);
+            $pStmt->bindValue(':price', $data['price']);
+            $pStmt->bindValue(':quantity', $data['quantity']);
+            $pStmt->bindValue(':prodID', $data['prodID']);
+            $pStmt->execute();
+            echo $pStmt->rowCount();
+        }
+    }
+    catch (PDOException $ex) {
+        $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();
+        echo $errMsg;
+//        throw new ErrorException("Delete failed".$errMsg);
+    }
+}
+
+if ($status == "update") updateInventory();
+
+
+
