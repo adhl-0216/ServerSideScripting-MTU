@@ -15,6 +15,11 @@ button {
     cursor: pointer;
 }
 
+table,tr,td,th{
+    border: 1px black solid;
+    border-spacing: 0;
+}
+
 /* Header styles */
 header {
     background-color: #ffffff;

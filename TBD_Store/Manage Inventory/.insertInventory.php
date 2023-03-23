@@ -14,7 +14,8 @@ try {
     echo true;
 }
 catch (PDOException $ex) {
-    echo $ex->getMessage().'; '.$ex->getTraceAsString();
+    echo false;
+//    echo $ex->getMessage().'; '.$ex->getTraceAsString();
 }
 
 
