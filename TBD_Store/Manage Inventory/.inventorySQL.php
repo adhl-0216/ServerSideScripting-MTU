@@ -1,68 +1,88 @@
 <?php
 session_start();
-$_SESSION['status'] = $_POST['sqlFunc'];
+$status = $_POST['sqlFunc'];
+$_SESSION['status'] = $status;
 function getConnection(): PDO
 {
-    $pdo = new PDO("mysql:host=localhost;db_name=tbd_store;charset=utf8",'root','');
+    $pdo = new PDO('mysql:host=localhost;db_name=tbd_store;charset=utf8','root','');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
 }
+
+if ($status == "insert") insertInventory();
 function insertInventory(){
     try {
         if (isset($_POST['data'])) {
-            $json = json_decode($_POST['data']);
+            $product = $_POST['data'];
             $pdo = getConnection();
-            $sqlInsert = 'INSERT INTO tbd_store.inventory VALUES (:prodID, :prodName, :prodDesc, :price, :quantity)';
-            $affected = $pdo->prepare($sqlInsert);
-            $affected->bindValue(':prodID', $json['PRODUCT_ID']);
-            $affected->bindValue(':prodName', $json['PRODUCT_NAME']);
-            $affected->bindValue(':prodDesc', $json['PRODUCT_DESCRIPTION']);
-            $affected->bindValue(':price', $json['PRICE']);
-            $affected->bindValue(':quantity', $json['QUANTITY']);
-            $affected->execute();
-            echo true;
+            $sqlInsert = 'INSERT INTO tbd_store.inventory (PRODUCT_TYPE, PRODUCT_NAME, PRODUCT_DESCRIPTION, UK_SIZE, PRICE, QUANTITY) VALUES (:prodType, :prodName, :prodDesc, :ukSize, :price, :quantity)';
+            $pStmt = $pdo->prepare($sqlInsert);
+            $pStmt->bindValue(':prodType', $product['PRODUCT_TYPE']);
+            $pStmt->bindValue(':prodName', $product['PRODUCT_NAME']);
+            $pStmt->bindValue(':prodDesc', $product['PRODUCT_DESCRIPTION']);
+            $pStmt->bindValue(':ukSize', $product['UK_SIZE']);
+            $pStmt->bindValue(':price', $product['PRICE']);
+            $pStmt->bindValue(':quantity', $product['QUANTITY']);
+            $pStmt->execute();
+            echo $pStmt->rowCount();
         }
     }
     catch (PDOException $ex) {
-        echo false;
-//    echo $ex->getMessage().'; '.$ex->getTraceAsString();
+        $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();
+        echo $errMsg;
     }
 }
-
+if ($status == "select") selectInventory();
 function selectInventory(){
     try {
         $pdo = getConnection();
         $sqlSelectInventory = 'SELECT * FROM tbd_store.inventory';
-        $resultSet = $pdo->prepare($sqlSelectInventory);
-        $resultSet->execute();
+        $pStmt = $pdo->prepare($sqlSelectInventory);
+        $pStmt->execute();
+        $result = $pStmt;
         $inventory = array(array());
         $idx = 0;
-        while ($row=$resultSet->fetch()){
-            $inventory[$idx][0] = $row['PRODUCT_ID'];
-            $inventory[$idx][1] = $row['PRODUCT_NAME'];
-            $inventory[$idx][2] = $row['DESCRIPTION'];
-            $inventory[$idx][3] = $row['PRICE'];
-            $inventory[$idx][4] = $row['QUANTITY'];
+        while ($row=$pStmt->fetch()){ //hardcode(?)
+            $inventory[$idx][0] = $row['PRODUCT_TYPE'];
+            $inventory[$idx][1] = $row['PRODUCT_ID'];
+            $inventory[$idx][2] = $row['PRODUCT_NAME'];
+            $inventory[$idx][3] = $row['PRODUCT_DESCRIPTION'];
+            $inventory[$idx][4] = $row['UK_SIZE'];
+            $inventory[$idx][5] = $row['PRICE'];
+            $inventory[$idx][6] = $row['QUANTITY'];
             $idx++;
         }
-
-        echo json_encode($inventory);
+        if ($result->rowCount() > 0) echo json_encode($inventory);
+        else echo "N/A";
     }
     catch (PDOException $ex) {
-        echo false;
-//    echo $ex->getMessage().'; '.$ex->getTraceAsString();
+        $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();
+        echo $errMsg;
     }
-
-//    echo $_POST['sqlFunc'];
-
-        switch ($_POST['sqlFunc']) {
-            case "select":
-                selectInventory();
-                break;
-            case "insert":
-                insertInventory();
-                break;
-            default:
-                break;
-        }
 }
+
+
+/**
+ * @throws ErrorException
+ */
+function deleteInventory()
+{
+    try {
+        if (isset($_POST['data'])) {
+            $prodID = $_POST['data'];
+            $pdo = getConnection();
+            $sqlDeleteInv = 'DELETE FROM tbd_store.inventory WHERE PRODUCT_ID=:prodID';
+            $pStmt = $pdo->prepare($sqlDeleteInv);
+            $pStmt->bindValue(':prodID', $prodID);
+            $pStmt->execute();
+            echo $pStmt->rowCount();
+        }
+    }
+    catch (PDOException $ex) {
+        $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();
+//        echo $errMsg;
+        throw new ErrorException("Delete failed".$errMsg);
+    }
+}
+
+if ($status == "delete") deleteInventory();
