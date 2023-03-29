@@ -8,7 +8,7 @@ $(function (){
             type: "POST",
             data: {sqlFunc: "delete" , data:prodID},
             success: (affectedRows) => {
-                if (affectedRows > 0) alert(affectedRows + ' row deleted.');
+                if (affectedRows > 0) console.log(affectedRows + ' row deleted.');
                 refreshTable();
             },
             error: (err) => {
@@ -40,7 +40,7 @@ $(function (){
             $.ajax({
                 url: ".inventorySQL.php",
                 type: "POST",
-                data: {sqlFunc: "update"},
+                data: {sqlFunc: "update", data: prodDetails},
                 success: (affectedRows) => {
                     if (affectedRows > 0) alert(affectedRows + ' row updated.');
                     refreshTable();
@@ -54,7 +54,8 @@ $(function (){
 
     }
     let refreshTable = function() {
-        $("#allProducts").find("tr:gt(0)").remove();
+        let table = $("#allProducts");
+        table.find("tr:gt(0)").remove();
         $.ajax({
                 url: ".inventorySQL.php",
                 type: "POST",
@@ -62,40 +63,48 @@ $(function (){
                 success: function (data) {
                     if(data === "N/A") return;
                     let allInventory = JSON.parse(data);
-                    for (let i = 0; i < allInventory.length; i++) {
-                        let prodID = allInventory[i][1];
+                    for (const product of allInventory) {
                         let tr = document.createElement("tr");
-                        tr.id = prodID;
-                        for (let j = 0; j < 7; j++) { //hardcode
+                        tr.id = product['PRODUCT_ID'];
+                        for (let property in product) {
                             let td = document.createElement("td");
-                            if(j < 2 || j === 4 ) td.innerText = allInventory[i][j];
-                            else {
+
+                            if (property === "PRODUCT_TYPE" || property === "PRODUCT_ID" || property === "UK_SIZE"){
+                                td.innerText = product[property];
+                            }else if (property === "PRICE" || property === "QUANTITY"){
+                                let inpTxt = document.createElement("input");
+                                inpTxt.type = "number";
+                                inpTxt.disabled = true;
+                                inpTxt.value = product[property];
+                                td.append(inpTxt);
+                            }else {
                                 let inpTxt = document.createElement("input");
                                 inpTxt.type = "text";
                                 inpTxt.disabled = true;
-                                inpTxt.value = allInventory[i][j];
+                                inpTxt.value = product[property];
                                 td.append(inpTxt);
                             }
                             tr.append(td);
                         }
+
                         let colOptions = document.createElement("td");
                         let btnDelete = document.createElement("button");
                         btnDelete.className = "btnDelete";
                         btnDelete.innerText = "DELETE";
-                        btnDelete.value = prodID;
+                        btnDelete.value = product['PRODUCT_ID'];
                         btnDelete.addEventListener('click', deleteInv);
                         colOptions.append(btnDelete);
 
                         let btnUpdate = document.createElement("button");
                         btnUpdate.className = "btnUpdate";
                         btnUpdate.innerText = "UPDATE";
-                        btnUpdate.value = prodID;
+                        btnUpdate.value = product['PRODUCT_ID'];
                         btnUpdate.addEventListener('click', updateInv);
                         colOptions.append(btnUpdate);
 
                         tr.append(colOptions);
 
-                        $("#allProducts").append(tr);
+                        table.append(tr);
                     }
                 }
             })
@@ -103,30 +112,40 @@ $(function (){
 
     refreshTable();
 
-
-
     $("[name='INSERT']").click(function (e){
         e.preventDefault();
-        let jsonData = {
-            "PRODUCT_TYPE":$("[name='PRODUCT_TYPE']").val(),
-            "PRODUCT_NAME":$("[name='PRODUCT_NAME']").val(),
-            "PRODUCT_DESCRIPTION":$("[name='PRODUCT_DESCRIPTION']").val(),
-            "UK_SIZE":$("[name='UK_SIZE']").val(),
-            "PRICE":$("[name='PRICE']").val(),
-            "QUANTITY":$("[name='QUANTITY']").val()
-        }
-        $.ajax({
+        let inputsNotEmpty = true;
+        let prodDetails = $("#addProduct :input:not(select)");
+        prodDetails.each(function (){
+                if($(this).val() === "") {
+                    inputsNotEmpty = false;
+                    alert("All Fields Must Be Entered.");
+                    return false;
+                }
+        })
+
+        if(inputsNotEmpty) {
+            let jsonData = {
+                "PRODUCT_TYPE": $("[name='PRODUCT_TYPE']").val(),
+                "PRODUCT_NAME": prodDetails[0].value,
+                "PRODUCT_DESCRIPTION": prodDetails[1].value,
+                "UK_SIZE": prodDetails[2].value,
+                "PRICE": prodDetails[3].value,
+                "QUANTITY": prodDetails[4].value
+            }
+            $.ajax({
                 url: '.inventorySQL.php',
                 type: "POST",
-                data: {sqlFunc: "insert", data:jsonData},
+                data: {sqlFunc: "insert", data: jsonData},
                 success: function (response) {
                     if (response > 0) {
                         alert("Great success! inserted " + $("[name='PRODUCT_NAME']").val());
                         refreshTable();
-                    }else {
+                    } else {
                         alert(response)
                     }
                 }
-        })
+            })
+        }
     });
 });

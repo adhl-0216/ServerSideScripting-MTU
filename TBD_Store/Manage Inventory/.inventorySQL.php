@@ -40,17 +40,19 @@ function selectInventory(){
         $pStmt = $pdo->prepare($sqlSelectInventory);
         $pStmt->execute();
         $result = $pStmt;
-        $inventory = array(array());
+        $inventory = array();
         $idx = 0;
         while ($row=$pStmt->fetch()){ //hardcode(?)
-            $inventory[$idx][0] = $row['PRODUCT_TYPE'];
-            $inventory[$idx][1] = $row['PRODUCT_ID'];
-            $inventory[$idx][2] = $row['PRODUCT_NAME'];
-            $inventory[$idx][3] = $row['PRODUCT_DESCRIPTION'];
-            $inventory[$idx][4] = $row['UK_SIZE'];
-            $inventory[$idx][5] = $row['PRICE'];
-            $inventory[$idx][6] = $row['QUANTITY'];
-            $idx++;
+            $product = array(
+                'PRODUCT_TYPE'=>$row['PRODUCT_TYPE'],
+                'PRODUCT_ID'=>$row['PRODUCT_ID'],
+                'PRODUCT_NAME'=>$row['PRODUCT_NAME'],
+                'PRODUCT_DESCRIPTION'=>$row['PRODUCT_DESCRIPTION'],
+                'UK_SIZE'=>$row['UK_SIZE'],
+                'PRICE'=>$row['PRICE'],
+                'QUANTITY'=>$row['QUANTITY'],
+            );
+            $inventory[] = $product;
         }
         if ($result->rowCount() > 0) echo json_encode($inventory);
         else echo "N/A";
