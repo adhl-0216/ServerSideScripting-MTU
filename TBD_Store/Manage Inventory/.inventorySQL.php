@@ -95,6 +95,7 @@ function updateInventory()
     try {
         if (isset($_POST['data'])) {
             $data = $_POST['data'];
+            var_dump($data);
             $pdo = getConnection();
             $sqlUpdateInv = 'UPDATE tbd_store.inventory SET PRODUCT_NAME=:prodName, PRODUCT_DESCRIPTION=:prodDesc, PRICE=:price, QUANTITY=:quantity WHERE PRODUCT_ID=:prodID';
             $pStmt = $pdo->prepare($sqlUpdateInv);

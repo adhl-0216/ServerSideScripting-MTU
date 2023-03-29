@@ -29,19 +29,18 @@ $(function (){
 
         }else if (status === "DONE") {
             btn.innerText = "UPDATE";
-            let postData = {
+            let prodDetails = {
                 prodID:btn.value,
                 prodName: inputs.eq(0).val(),
                 prodDesc: inputs.eq(1).val(),
                 price: inputs.eq(2).val(),
                 quantity: inputs.eq(3).val()
             }
-            console.log(postData);
+            console.log(prodDetails);
             $.ajax({
                 url: ".inventorySQL.php",
                 type: "POST",
-                dataType: 'json',
-                data: postData,
+                data: {sqlFunc: "update"},
                 success: (affectedRows) => {
                     if (affectedRows > 0) alert(affectedRows + ' row updated.');
                     refreshTable();
