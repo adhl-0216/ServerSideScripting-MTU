@@ -1,5 +1,5 @@
 <?php
-include "User.php";
+include ".user.php";
 
 if (isset($_POST['signUp'])){
     try {

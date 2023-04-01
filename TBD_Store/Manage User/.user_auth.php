@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "User.php";
+include ".user.php";
 if (isset($_POST)){
     $user = $_POST['username'];
     $psw = $_POST['password'];

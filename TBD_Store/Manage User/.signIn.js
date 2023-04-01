@@ -9,7 +9,7 @@ $(document).ready(function() {
             success: function (response) {
                 if (response['isValid'] === true) {
                     alert('Access Granted!');
-                    window.location.href = 'http://localhost/ADHL/ServerSideScripting-MTU/TBD_Store/homepage.php';
+                    window.location.href = '../Homepage/homepage.php';
                 } else {
                     alert('Invalid Credentials!');
                 }
