@@ -1,14 +1,15 @@
 <?php
 session_start();
+use TBD_Store\dbConnect;
 $status = $_POST['sqlFunc'];
 $_SESSION['status'] = $status;
+
 function getConnection(): PDO
 {
     $pdo = new PDO('mysql:host=localhost;db_name=tbd_store;charset=utf8','root','');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
 }
-
 if ($status == "insert") insertInventory();
 function insertInventory(){
     try {
@@ -41,10 +42,8 @@ function selectInventory(){
         $pStmt->execute();
         $result = $pStmt;
         $inventory = array();
-        $idx = 0;
-        while ($row=$pStmt->fetch()){ //hardcode(?)
+        while ($row=$result->fetch()){
             $product = array(
-                'PRODUCT_TYPE'=>$row['PRODUCT_TYPE'],
                 'PRODUCT_ID'=>$row['PRODUCT_ID'],
                 'PRODUCT_NAME'=>$row['PRODUCT_NAME'],
                 'PRODUCT_DESCRIPTION'=>$row['PRODUCT_DESCRIPTION'],
@@ -82,7 +81,6 @@ function deleteInventory()
     }
     catch (PDOException $ex) {
         $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();
-//        echo $errMsg;
         throw new ErrorException("Delete failed".$errMsg);
     }
 }

@@ -1,9 +1,9 @@
-var int;
+let int;
 function setInt() {
     clearInterval(int);
     int = setInterval(function() {
-        var btns = document.getElementsByName("carousel");
-        for(var i = 0; i < btns.length; i++) {
+        const btns = document.getElementsByName("carousel");
+        for(let i = 0; i < btns.length; i++) {
             if(btns[i].checked) {
                 btns[i].checked = false;
                 if(i + 1 === btns.length) {
@@ -18,8 +18,5 @@ function setInt() {
     }, 5000);
 }
 setInt();
-$(document).ready(function(){
-    $("[name='profile']").click(function (){
-        window.location.href = "../Manage User/Profile.html";
-    })
-})
+
+
