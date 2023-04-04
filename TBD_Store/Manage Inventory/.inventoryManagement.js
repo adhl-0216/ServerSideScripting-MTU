@@ -17,11 +17,18 @@ $(function (){
 
         });
     }
+    function inputValidation(rowIdx) {
+        let price = $(`#allProducts tr[id="${rowIdx}"] :input[name="PRICE"]`).val();
+        let quantity = $(`#allProducts tr[id="${rowIdx}"] :input[name="QUANTITY"]`).val();
+        return !(isNaN(parseFloat(price)) || isNaN(parseInt(quantity)));
+    }
     let updateInv = function (e){
         let btn = e.target;
         let status = btn.innerText;
         let rowIdx = btn.parentNode.parentNode.id;
         let inputs = $(`#allProducts tr[id="${rowIdx}"] :input:not(button)`);
+        $('#allProducts :button').prop("disabled", true);
+        btn.disabled = false;
 
         if (status === "UPDATE"){
             btn.innerText = "DONE";
@@ -29,6 +36,11 @@ $(function (){
 
         }else if (status === "DONE") {
             btn.innerText = "UPDATE";
+            if(!inputValidation(rowIdx)) {
+                alert("Invalid Input!");
+                refreshTable();
+                return;
+            }
             let prodDetails = {
                 prodID:btn.value,
                 prodName: inputs.eq(0).val(),
@@ -36,17 +48,15 @@ $(function (){
                 price: inputs.eq(2).val(),
                 quantity: inputs.eq(3).val()
             }
-            console.log(prodDetails);
             $.ajax({
                 url: ".inventorySQL.php",
                 type: "POST",
                 data: {sqlFunc: "update", data: prodDetails},
-                success: (affectedRows) => {
-                    if (affectedRows > 0) alert(affectedRows + ' row updated.');
+                success: () => {
                     refreshTable();
                 },
                 catch: (err) => {
-                    alert(err)
+                    console.log(err);
                 }
             });
             inputs.prop("disabled", true);
@@ -74,6 +84,7 @@ $(function (){
                             }else if (property === "PRICE" || property === "QUANTITY"){
                                 let inpTxt = document.createElement("input");
                                 inpTxt.type = "number";
+                                inpTxt.name = property;
                                 inpTxt.disabled = true;
                                 inpTxt.value = product[property];
                                 td.append(inpTxt);
@@ -90,6 +101,7 @@ $(function (){
                         let colOptions = document.createElement("td");
                         let btnDelete = document.createElement("button");
                         btnDelete.className = "btnDelete";
+                        btnDelete.id = product['PRODUCT_ID'];
                         btnDelete.innerText = "DELETE";
                         btnDelete.value = product['PRODUCT_ID'];
                         btnDelete.addEventListener('click', deleteInv);
@@ -97,6 +109,7 @@ $(function (){
 
                         let btnUpdate = document.createElement("button");
                         btnUpdate.className = "btnUpdate";
+                        btnUpdate.id = product['PRODUCT_ID'];
                         btnUpdate.innerText = "UPDATE";
                         btnUpdate.value = product['PRODUCT_ID'];
                         btnUpdate.addEventListener('click', updateInv);

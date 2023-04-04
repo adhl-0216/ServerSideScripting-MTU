@@ -1,0 +1,8 @@
+li.productItem {
+    display: inline-block;
+    color: red;
+}
+
+li.productItem :hover {
+    background: grey;
+}

@@ -14,15 +14,17 @@
     function createItems(data){
         let allInventory = JSON.parse(data);
         for (const product of allInventory) {
+            let imgID = 'FW'+product['PRODUCT_ID'].toString().padStart(2,'0');
             $('#productsList').append(`
             <li class="productItem" id="${product['PRODUCT_ID']}">
                 <div>
                     <div class="productImage">
-                        <img src="../rsc/footwear/FW${product['PRODUCT_ID']}.webp" alt="">
+                        <img src="../rsc/footwear/${imgID}.webp" alt="${imgID}" title="${imgID}">
                     </div>
                     <div class="productDetails">
-                        <p>${product['PRODUCT_NAME']}</p>
-                        <p>${product['PRODUCT_DESCRIPTION']}</p>
+                        <span>${product['PRODUCT_NAME']}</span>
+                        <span>&euro;${product['PRICE']}</span>
+                        <span>${product['PRODUCT_DESCRIPTION']}</span>
                     </div>
                 </div>
             </li>
@@ -34,18 +36,8 @@
 
 </script>
 <body>
+<h1>Basketball Shoes</h1>
 <ul id="productsList" class="productsList">
-    <li class="productItem" id="FW01">
-        <div>
-            <div class="productImage">
-                <img src="../rsc/footwear/FW01.webp" alt="">
-            </div>
-            <div class="productDetails">
-                <p>FW01</p>
-                <p>Basketball Shoe</p>
-            </div>
-        </div>
-    </li>
 </ul>
 </body>
 <?php include "../footer.html"?>

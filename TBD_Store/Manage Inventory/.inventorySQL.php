@@ -1,6 +1,5 @@
 <?php
 session_start();
-use TBD_Store\dbConnect;
 $status = $_POST['sqlFunc'];
 $_SESSION['status'] = $status;
 
@@ -44,6 +43,7 @@ function selectInventory(){
         $inventory = array();
         while ($row=$result->fetch()){
             $product = array(
+                'PRODUCT_TYPE'=>$row['PRODUCT_TYPE'],
                 'PRODUCT_ID'=>$row['PRODUCT_ID'],
                 'PRODUCT_NAME'=>$row['PRODUCT_NAME'],
                 'PRODUCT_DESCRIPTION'=>$row['PRODUCT_DESCRIPTION'],
