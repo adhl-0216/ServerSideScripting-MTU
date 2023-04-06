@@ -1,4 +1,4 @@
 <?php
-include "../header.html";
+include "../myHeader.html";
 include ".InventoryManagement.html";
-include "../footer.html";
+include "../myFooter.html";

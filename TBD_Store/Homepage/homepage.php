@@ -1,31 +1,38 @@
-<?php include "../header.html" ?>
-<title>TBD Store Homepage</title>
-<script src=".homepageNav.js"></script>
+<?php include "../css/myHeader.html" ?>
+
 <body>
-<div id="header">
-    <p>TBD Store</p>
-    <div id="home"><a href="homepage.php">HOME</a></div>
-    <div id="user"><a href="../Manage User/Profile.html">PROFILE</a></div>
-    <div id="cart"><a href="../Manage Cart/cart.html">CART</a></div>
-</div>
-<div>
-    <ul >
-        <li><a href="../View Listings/footwear.php">Footwear</a></li>
-        <li><a href="../View Listings/jersey.php">Jersey</a></li>
-        <li><a href="../View Listings/equipment.php">Equipment</a></li>
-        <li><a href="../View Listings/accessories.php">Accessories</a></li>
-    </ul>
-</div>
-<div>
-    <img src="../rsc/footwear.webp" alt="">
-    <img src="../rsc/jerseys.webp" alt="">
-    <img src="../rsc/equipments.webp" alt="">
-    <img src="../rsc/accessories.jpg" alt="">
-</div>
+<nav>
+    <div>
+        <ul >
+            TBD Store
+            <li><a href="homepage.php">HOME</a></li>
+            <li><a href="../Manage%20User/Profile.html">PROFILE</a></li>
+            <li><a href="../Manage%20Cart/cart.html">CART</a></li>
+        </ul>
+    </div>
+    <div>
+        <ul >
+            <li><a href="../Manage%20Listings/viewListings.php?p=FW">Footwear</a></li>
+            <li><a href="../Manage%20Listings/viewListings.php?p=JR">Jersey</a></li>
+            <li><a href="../Manage%20Listings/viewListings.php?p=AC">Accessories</a></li>
+        </ul>
+    </div>
+</nav>
 
-
-<h2>Hello <?php session_start(); echo $_SESSION['username'];?></h2>
-
+<div class="carousel" >
+    <input type="radio" name="carousel" id="slide-btn-1" class="slide-btn" onclick="setInt();" checked />
+    <input type="radio" name="carousel" id="slide-btn-2" class="slide-btn" onclick="setInt();" />
+    <input type="radio" name="carousel" id="slide-btn-3" class="slide-btn" onclick="setInt();" />
+    <div class="slide one parallax-effect"><h1>Footwear</h1></div>
+    <div class="slide two parallax-effect"><h1>Jerseys</h1></div>
+    <div class="slide three parallax-effect"><h1>Accessories</h1></div>
+    <div class="labels">
+        <label for="slide-btn-1"></label>
+        <label for="slide-btn-2"></label>
+        <label for="slide-btn-3"></label>
+    </div>
+</div>
 </body>
-<?php include "../footer.html" ?>
+<script async src=".homepageNav.js"></script>
+<?php include "../css/myFooter.html" ?>
 
