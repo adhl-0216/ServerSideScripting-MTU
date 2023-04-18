@@ -1,16 +1,17 @@
 <?php
-
+include "../dbConnect.php";
 class User
 {
-    private static function sqlConnect(&$pdo)
-    {
-        $pdo = new PDO('mysql:host=localhost;dbname=tbd_store;charset=utf8','root','');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
+//    private static function sqlConnect(&$pdo)
+//    {
+//        $pdo = new PDO('mysql:host=localhost;dbname=tbd_store;charset=utf8','root','');
+//        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//    }
 
     public static function sqlInsert($email, $password, $username)
     {
-        self::sqlConnect($pdo);
+        dbConnect($pdo);
+
         $sqlInsert = 'INSERT INTO users (
                    USER_EMAIL, USER_PASSWORD, USER_NAME, REGISTRATION_DATE
                    ) VALUES (
@@ -26,7 +27,8 @@ class User
     }
 
     public static function sqlDelete($username){
-        self::sqlConnect($pdo);
+
+        dbConnect($pdo);
 
         $sqlDelete = 'DELETE FROM users WHERE USER_NAME=:username';
         $result = $pdo->prepare($sqlDelete);

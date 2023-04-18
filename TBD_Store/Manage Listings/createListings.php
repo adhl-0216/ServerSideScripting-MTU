@@ -1,16 +1,10 @@
 <?php
 session_start();
+include "../dbConnect.php";
 $productType = $_POST['productType'];
 
-function getConnection(): PDO
-{
-    $pdo = new PDO('mysql:host=localhost;db_name=tbd_store;charset=utf8','root','');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    return $pdo;
-}
-
 try {
-    $pdo = getConnection();
+    dbConnect($pdo);
     $sqlSelect = 'SELECT * FROM tbd_store.inventory WHERE PRODUCT_TYPE=:prodType';
     $stmt = $pdo->prepare($sqlSelect);
     $stmt->bindValue(':prodType', $productType);

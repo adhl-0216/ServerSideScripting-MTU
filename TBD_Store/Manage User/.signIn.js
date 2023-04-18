@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#loginForm').submit(function(e) {
+    $('#signInForm').submit(function(e) {
         e.preventDefault();
         $.ajax({
             type: "POST",

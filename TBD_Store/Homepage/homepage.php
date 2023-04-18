@@ -1,12 +1,12 @@
 <?php include "../css/myHeader.html" ?>
-
+<script async src=".homepageNav.js"></script>
 <body>
 <nav>
     <div>
         <ul >
             TBD Store
             <li><a href="homepage.php">HOME</a></li>
-            <li><a href="../Manage%20User/Profile.html">PROFILE</a></li>
+            <li><a href="../Manage%20User/userProfile.php">PROFILE</a></li>
             <li><a href="../Manage%20Cart/cart.html">CART</a></li>
         </ul>
     </div>
@@ -33,6 +33,5 @@
     </div>
 </div>
 </body>
-<script async src=".homepageNav.js"></script>
 <?php include "../css/myFooter.html" ?>
 
