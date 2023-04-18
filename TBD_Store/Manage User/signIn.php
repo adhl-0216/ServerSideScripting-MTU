@@ -1,4 +1,10 @@
 <?php include "../css/myHeader.html" ?>
+<?php
+    session_start();
+    if(isset($_SESSION['username'])){
+        header("Location: userProfile.php");
+    }
+?>
 <script src=".signIn.js"></script>
 <body>
 <h1>Welcome!</h1>
@@ -11,6 +17,6 @@
     </label>
     <input type="submit" name="login" value="SIGN IN">
 </form>
-Don't have an account? <a href="Sign%20Up.html">Sign Up here.</a>
+Don't have an account? <a href="signUp.php">Sign Up here.</a>
 </body>
 <?php include "../css/myFooter.html" ?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../dbConnect.php";
+include "../.dbConnect.php";
 $productType = $_POST['productType'];
 
 try {

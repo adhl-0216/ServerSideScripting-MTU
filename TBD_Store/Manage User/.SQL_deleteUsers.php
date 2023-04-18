@@ -1,9 +1,9 @@
 <?php
 session_start();
+include "../.dbConnect.php";
 if (isset($_POST['deleteUser'])) {
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=tbd_store;charset=utf8','root', '');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        dbConnect($pdo);
 
         $sqlDelete = 'DELETE FROM users WHERE USER_NAME=:username';
         $result = $pdo->prepare($sqlDelete);

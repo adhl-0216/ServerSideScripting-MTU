@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TBD STORE - Sign Up</title>
-</head>
-<style>
-</style>
+<?php include "../css/myHeader.html"?>
+
 <body>
+<div id="init">
 <h1>New User Sign Up</h1>
-<form action=".insertUsers.php" method="post">
+<form id="signUpForm">
   <table>
     <tr><td>USERNAME</td>
       <td>
@@ -31,5 +26,8 @@
 
   <input type="submit" name="signUp" value="Sign Up">
 </form>
+</div>
+<div id="success" hidden>Great success. <a href="signIn.php">Sign In Here!</a></div>
 </body>
-</html>
+<script src=".signUp.js"></script>
+<?php include "../css/myFooter.html"?>

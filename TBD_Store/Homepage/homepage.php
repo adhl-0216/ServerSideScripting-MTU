@@ -4,14 +4,6 @@
 <nav>
     <div>
         <ul >
-            TBD Store
-            <li><a href="homepage.php">HOME</a></li>
-            <li><a href="../Manage%20User/userProfile.php">PROFILE</a></li>
-            <li><a href="../Manage%20Cart/cart.html">CART</a></li>
-        </ul>
-    </div>
-    <div>
-        <ul >
             <li><a href="../Manage%20Listings/viewListings.php?p=FW">Footwear</a></li>
             <li><a href="../Manage%20Listings/viewListings.php?p=JR">Jersey</a></li>
             <li><a href="../Manage%20Listings/viewListings.php?p=AC">Accessories</a></li>

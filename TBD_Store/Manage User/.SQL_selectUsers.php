@@ -1,5 +1,5 @@
 <?php
-include '../dbConnect.php';
+include '../.dbConnect.php';
 if (isset($_POST['username'])){
     $username = $_POST['username'];
     try {
