@@ -4,7 +4,7 @@ include "../.dbConnect.php";
 function verify_login(&$user, $password): bool
 {
     dbConnect($pdo);
-    $sqlSelectByUsername = 'SELECT USER_PASSWORD, USER_NAME FROM users WHERE (USER_NAME=:user OR USER_EMAIL=:user)';
+    $sqlSelectByUsername = 'SELECT USER_PASSWORD, USER_NAME FROM tbd_store.users WHERE (USER_NAME=:user OR USER_EMAIL=:user)';
     $stmt = $pdo->prepare($sqlSelectByUsername);
     $stmt->bindValue(':user', $user);
     $stmt->execute();

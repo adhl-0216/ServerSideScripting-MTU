@@ -1,5 +1,5 @@
 <?php include "../css/myHeader.html"?>
-
+<script async src=".signUp.js"></script>
 <body>
 <div id="init">
 <h1>New User Sign Up</h1>
@@ -22,6 +22,11 @@
         <label><input type="password" name="USER_PASSWORD" class="userDetails" required></label>
       </td>
     </tr>
+    <tr><td>CONFIRM PASSWORD</td>
+      <td>
+        <label><input type="password" id="passwordCheck" class="userDetails" required></label>
+      </td>
+    </tr>
   </table>
 
   <input type="submit" name="signUp" value="Sign Up">
@@ -29,5 +34,5 @@
 </div>
 <div id="success" hidden>Great success. <a href="signIn.php">Sign In Here!</a></div>
 </body>
-<script src=".signUp.js"></script>
+
 <?php include "../css/myFooter.html"?>

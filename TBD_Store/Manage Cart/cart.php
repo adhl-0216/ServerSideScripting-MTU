@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Shopping Cart</title>
-</head>
+<?php include "../css/myHeader.html"?>
 <body>
 <form>
 <ul id="cartItems">
@@ -13,6 +8,7 @@
     <li><label>Cap <input type="checkbox" value="AC009"></label></li>
     <li><label>Ball <input type="checkbox" value="EQ002"></label></li>
 </ul>
+    <button id="btnCheckOut">CHECK OUT</button>
 </form>
 </body>
-</html>
+<?php include "../css/myFooter.html"?>

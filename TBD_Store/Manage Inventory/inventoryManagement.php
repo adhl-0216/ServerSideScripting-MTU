@@ -1,3 +1,5 @@
+<?php
+include "../css/myHeader.html";?>
 <body>
 <h1>Inventory Management</h1>
 <h2>Current Inventory</h2>
@@ -63,3 +65,4 @@
   </form>
 </body>
 <script async src=".inventoryManagement.js"></script>
+<?php include "../css/myFooter.html";?>

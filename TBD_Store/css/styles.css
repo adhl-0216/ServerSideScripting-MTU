@@ -1,15 +1,26 @@
 body {
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0 auto;
-    padding: 0;
+    margin: auto;
     box-sizing: border-box;
+    background: rgb(248, 248, 248);
 }
 
 nav {
     top: 0;
     z-index: 2;
     transition: all 0.3s ease;
+    display: inline-flex;
+    background: white;
+    width: 100%;
+}
+
+nav div {
+    position: relative;
+}
+
+nav div img {
+    background: white;
 }
 
 nav li {
@@ -20,7 +31,7 @@ nav li {
 }
 nav li a {
     text-decoration: none;
-    color: #1ac;
+    color: #8dbdff;
 }
 
 nav ul {
@@ -30,12 +41,9 @@ nav ul {
     padding: 20px;
     background: #fff;
     transition: all 0.3s ease;
+    margin: auto;
 }
 
-nav span {
-    color: #1ac;
-    font-size: 24px;
-}
 
 .sticky {
     position: fixed;
@@ -59,7 +67,7 @@ nav span {
     margin: 0 auto;
     line-height: 75vh;
     font-size: 10vmin;
-    color: #11aacc;
+    color: #8dbdff;
 }
 .slide {
     float: left;

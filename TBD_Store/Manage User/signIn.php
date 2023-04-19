@@ -8,7 +8,7 @@
 <script src=".signIn.js"></script>
 <body>
 <h1>Welcome!</h1>
-<form method="post" name="signIn" id="signInForm">
+<form id="signInForm">
     <label>Username:
         <input type="text" name="username">
     </label>
