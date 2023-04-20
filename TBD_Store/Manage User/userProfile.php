@@ -3,6 +3,7 @@
 session_start();
 $username = null;
 if(isset($_SESSION['username'])) $username = $_SESSION['username'];
+else header("Location: ../Homepage/index.php");
 ?>
 <script>
     $(function (){
@@ -27,6 +28,9 @@ if(isset($_SESSION['username'])) $username = $_SESSION['username'];
 <div id="userDetails"></div>
 <form method="post" action=".SQL_deleteUsers.php">
     <input type="submit" name="deleteUser" value="TERMINATE ACCOUNT">
+</form>
+<form method="post" action="../Homepage/index.php">
+    <input type="submit" name="signOut" value="SIGN OUT">
 </form>
 </body>
 <?php include "../css/myFooter.html" ?>

@@ -8,12 +8,12 @@ $(document).ready(function() {
             data: $(this).serialize(),
             success: function (response) {
                 if (response['isValid'] === true) {
-                    alert('Access Granted!');
-                    window.location.href = '../Homepage/homepage.php';
+                    window.location.href = '../Homepage/index.php';
                 } else {
                     alert('Invalid Credentials!');
                 }
             }
         });
     });
+
 });
