@@ -1,3 +1,12 @@
+function convertFormToJSON(form) {
+    return $(form)
+        .serializeArray()
+        .reduce(function (json, { name, value }) {
+            json[name] = value;
+            return json;
+        }, {});
+}
+
 $(function (){
     $("#signUpForm").submit(function (e){
         e.preventDefault();
@@ -7,7 +16,7 @@ $(function (){
             $.ajax({
                 url: ".SQL_insertUsers.php",
                 type: "POST",
-                data: $(this).serialize(),
+                data: convertFormToJSON($(this)),
                 success: function (response) {
                     if (response === "success"){
                         $("#success").show();

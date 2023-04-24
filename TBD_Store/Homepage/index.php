@@ -4,7 +4,6 @@
     if (isset($_POST['signOut'])) unset($_SESSION['userID']);
 ?>
 <script async src=".homepageNav.js"></script>
-<body>
 <nav>
     <div>
         <ul >
@@ -14,7 +13,7 @@
         </ul>
     </div>
 </nav>
-
+<body>
 <div class="carousel" >
     <input type="radio" name="carousel" id="slide-btn-1" class="slide-btn" onclick="setInt();" checked >
     <input type="radio" name="carousel" id="slide-btn-2" class="slide-btn" onclick="setInt();" >

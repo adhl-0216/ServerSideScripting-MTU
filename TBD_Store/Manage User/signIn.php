@@ -10,7 +10,7 @@
 <h1>Welcome!</h1>
 <form id="signInForm" action=".user_auth.php" method="post">
     <label>Email:
-        <input type="text" name="userEmail">
+        <input type="email" name="userEmail">
     </label>
     <label>Password:
         <input type="password" name="password">

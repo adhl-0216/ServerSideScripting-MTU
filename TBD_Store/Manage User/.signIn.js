@@ -1,12 +1,14 @@
+function convertFormToJSON(form) {
+    return $(form)
+        .serializeArray()
+        .reduce(function (json, { name, value }) {
+            json[name] = value;
+            return json;
+        }, {});
+}
+
 $(document).ready(function() {
-    function convertFormToJSON(form) {
-        return $(form)
-            .serializeArray()
-            .reduce(function (json, { name, value }) {
-                json[name] = value;
-                return json;
-            }, {});
-    }
+
     $('#signInForm').submit(function(e) {
         e.preventDefault();
         let url = ".user_auth.php";
@@ -20,7 +22,7 @@ $(document).ready(function() {
                 if (jsonRes['isValid'] === true) {
                     window.location.href = '../Homepage/index.php';
                 } else {
-                    alert('Invalid Credentials!');
+                    $("#signInForm").append("Invalid Credentials")
                 }
             }
         });

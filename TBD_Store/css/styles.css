@@ -1,9 +1,21 @@
 body {
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: auto;
+    margin: 100px;
     box-sizing: border-box;
     background: rgb(248, 248, 248);
+}
+
+
+.button-style {
+    background-color: #8dbdff;
+    color: white;
+    padding: 15px 25px;
+    margin: auto;
+    text-decoration: none;
+}
+.errMsg {
+    color: red;
 }
 
 nav {
