@@ -15,6 +15,8 @@ $(function (){
                     }
                 }
             })
+        }else{
+            alert("Passwords Do Not Match")
         }
     })
 })

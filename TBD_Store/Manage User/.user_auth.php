@@ -14,8 +14,8 @@ function verify_login(&$user, $password): bool
 }
 
 if (isset($_POST)){
-    $user = $_POST['username'];
-    $psw = $_POST['password'];
+    $user = $_POST["username"];
+    $psw = $_POST["password"];
     if (verify_login($user,$psw)){
         $_SESSION["username"] = $user;
         echo json_encode(array('isValid'=>true));

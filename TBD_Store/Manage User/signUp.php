@@ -3,28 +3,40 @@
 <body>
 <div id="init">
 <h1>New User Sign Up</h1>
-<form id="signUpForm">
+<form id="signUpForm" class="userDetails">
   <table>
     <tr><td>USERNAME</td>
       <td>
-        <label><input type="text" name="USER_NAME" class="userDetails" required></label>
+        <label><input type="text" name="USER_NAME" required></label>
+      </td>
+    </tr>
+
+    <tr><td>FIRST NAME</td>
+      <td>
+        <label><input type="text" name="FIRST_NAME" required></label>
+      </td>
+    </tr>
+
+    <tr><td>LAST NAME</td>
+      <td>
+        <label><input type="text" name="LAST_NAME" required></label>
       </td>
     </tr>
 
     <tr><td>EMAIL</td>
       <td>
-        <label><input type="text" name="USER_EMAIL" class="userDetails" required></label>
+        <label><input type="text" name="USER_EMAIL" required></label>
       </td>
     </tr>
 
     <tr><td>PASSWORD</td>
       <td>
-        <label><input type="password" name="USER_PASSWORD" class="userDetails" required></label>
+        <label><input type="password" name="USER_PASSWORD" required></label>
       </td>
     </tr>
     <tr><td>CONFIRM PASSWORD</td>
       <td>
-        <label><input type="password" id="passwordCheck" class="userDetails" required></label>
+        <label><input type="password" id="passwordCheck" required></label>
       </td>
     </tr>
   </table>
