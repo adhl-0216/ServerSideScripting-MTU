@@ -1,18 +1,19 @@
 <?php
 include '../.dbConnect.php';
-if (isset($_POST['username'])){
-    $username = $_POST['username'];
+if (isset($_POST['userID'])){
+    $userID = $_POST['userID'];
     try {
         dbConnect($pdo);
 
-        $sqlSelect = 'SELECT * FROM tbd_store.users WHERE USER_NAME=:username';
+        $sqlSelect = 'SELECT * FROM tbd_store.users WHERE USER_ID=:userID';
         $stmt = $pdo->prepare($sqlSelect);
-        $stmt->bindValue(':username', $username);
+        $stmt->bindValue(':userID', $userID);
         $stmt->execute();
         $result = $stmt;
         $row = $result->fetch();
         $userInfo = array(
-            'username'=>$row['USER_NAME'],
+            'fName'=>$row['FIRST_NAME'],
+            'lName'=>$row['LAST_NAME'],
             'userEmail'=>$row['USER_EMAIL'],
             'userPsw'=>$row['USER_PASSWORD'],
             'regDate'=>$row['REGISTRATION_DATE'],

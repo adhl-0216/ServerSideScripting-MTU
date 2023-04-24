@@ -1,43 +1,74 @@
 <?php include "../css/myHeader.html" ?>
 <?php
 session_start();
-$username = null;
-if(isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-
+$userID = null;
+if(isset($_SESSION['userID'])) {
+    $userID = $_SESSION['userID'];
 }
 else header("Location: ../Homepage/index.php");
+
 ?>
 <script>
     $(function (){
+        function convertFormToJSON(form) {
+            return $(form)
+                .serializeArray()
+                .reduce(function (json, { name, value }) {
+                    json[name] = value;
+                    return json;
+                }, {});
+        }
         $.ajax({
             url: ".SQL_selectUsers.php",
             type: "POST",
-            data: {username: "<?php echo $username?>"},
+            data: {userID: "<?php echo $userID?>"},
             success: function (response){
                 let userDetails = JSON.parse(response);
                 console.log(userDetails);
-                console.log(userDetails['username']);
-                $("#username").val(userDetails['username'])
-                $("#userEmail").val(userDetails['userEmail'])
-                $("#regDate").text(userDetails['regDate'])
+                $("#firstName").val(userDetails['fName']);
+                $("#lastName").val(userDetails['lName']);
+                $("#userEmail").val(userDetails['userEmail']);
+                $("#regDate").append(userDetails['regDate'].substring(0,11));
             }
         });
+        $("#editDetails").click(function (e){
+            e.preventDefault();
+            $("#userDetails form :input").prop("disabled",false);
+            $(this).prop("disabled",true);
+        })
+        $("#userDetails form").submit(function (e){
+            e.preventDefault();
+            console.log(convertFormToJSON($(this)));
+            $.ajax({
+                type: "POST",
+                url: ".SQL_updateUser.php",
+                data: convertFormToJSON($(this)),
+                success: function (){
+                    console.log("success");
+                    location.reload();
+                }
+            })
+        })
     });
 </script>
 <body>
+<h1>Profile Information</h1>
 <div id="userDetails">
     <form>
-        <label for="username">USERNAME </label><input type="text" id="username" disabled>
+        <label for="firstName">FIRST NAME </label><input type="text" id="firstName" name="firstName" disabled>
         <br>
-        <label for="userEmail">EMAIL </label><input type="text" id="userEmail" disabled>
-        <p id="regDate"></p>
+        <label for="lastName">LAST NAME </label><input type="text" id="lastName" name="lastName" disabled>
+        <br>
+        <label for="userEmail">EMAIL </label><input type="text" id="userEmail" name="userEmail" disabled>
+        <br>
+        <button id="editDetails">Edit</button>
+        <input type="submit" name="updateDetails" value="Save Changes" disabled>
     </form>
-
+    <p id="regDate">Registration Date: </p>
 </div>
 <a href="resetPassword.php">Change Password</a>
 <?php
-if ($username === "admin"){
+if ($userID === 0){
     echo "<a href='../Manage%20Inventory/inventoryManagement.php'>Inventory Management</a>";
 }
 ?>

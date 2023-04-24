@@ -5,12 +5,6 @@
 <h1>New User Sign Up</h1>
 <form id="signUpForm" class="userDetails">
   <table>
-    <tr><td>USERNAME</td>
-      <td>
-        <label><input type="text" name="USER_NAME" required></label>
-      </td>
-    </tr>
-
     <tr><td>FIRST NAME</td>
       <td>
         <label><input type="text" name="FIRST_NAME" required></label>

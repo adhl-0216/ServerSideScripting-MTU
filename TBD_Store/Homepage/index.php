@@ -1,7 +1,7 @@
 <?php include "../css/myHeader.html" ?>
 <?php
     session_start();
-    if (isset($_POST['signOut'])) unset($_SESSION['username']);
+    if (isset($_POST['signOut'])) unset($_SESSION['userID']);
 ?>
 <script async src=".homepageNav.js"></script>
 <body>

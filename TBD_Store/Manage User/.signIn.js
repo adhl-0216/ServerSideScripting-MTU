@@ -1,13 +1,23 @@
 $(document).ready(function() {
+    function convertFormToJSON(form) {
+        return $(form)
+            .serializeArray()
+            .reduce(function (json, { name, value }) {
+                json[name] = value;
+                return json;
+            }, {});
+    }
     $('#signInForm').submit(function(e) {
         e.preventDefault();
+        let url = ".user_auth.php";
         $.ajax({
             type: "POST",
-            url: ".user_auth.php",
-            dataType: "json",
-            data: $(this).serialize(),
+            url: url,
+            data: convertFormToJSON($(this)),
             success: function (response) {
-                if (response['isValid'] === true) {
+                console.log(response);
+                let jsonRes = JSON.parse(response);
+                if (jsonRes['isValid'] === true) {
                     window.location.href = '../Homepage/index.php';
                 } else {
                     alert('Invalid Credentials!');

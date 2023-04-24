@@ -1,16 +1,16 @@
 <?php include "../css/myHeader.html" ?>
 <?php
     session_start();
-    if(isset($_SESSION['username'])){
+    if(isset($_SESSION['userID'])){
         header("Location: userProfile.php");
     }
 ?>
 <script src=".signIn.js"></script>
 <body>
 <h1>Welcome!</h1>
-<form id="signInForm">
-    <label>Username:
-        <input type="text" name="username">
+<form id="signInForm" action=".user_auth.php" method="post">
+    <label>Email:
+        <input type="text" name="userEmail">
     </label>
     <label>Password:
         <input type="password" name="password">
