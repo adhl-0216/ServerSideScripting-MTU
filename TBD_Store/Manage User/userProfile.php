@@ -18,20 +18,28 @@ else header("Location: ../Homepage/index.php");
                     return json;
                 }, {});
         }
-        //fetch user profile
-        $.ajax({
-            url: ".SQL_selectUsers.php",
-            type: "POST",
-            data: {userID: "<?php echo $userID?>"},
-            success: function (response){
-                let userDetails = JSON.parse(response);
-                console.log(userDetails);
-                $("#firstName").val(userDetails['fName']);
-                $("#lastName").val(userDetails['lName']);
-                $("#userEmail").val(userDetails['userEmail']);
-                $("#regDate").append(userDetails['regDate'].substring(0,11));
-            }
-        });
+        let userID;
+
+        $.get("../Manage User/.userSession.php", function (response){
+            userID = response;
+            console.log(userID);
+        }).then(function (){
+            //fetch user profile
+            $.ajax({
+                url: ".SQL_selectUsers.php",
+                type: "POST",
+                data: {userID: userID},
+                success: function (response){
+                    let userDetails = JSON.parse(response);
+                    console.log(userDetails);
+                    $("#firstName").val(userDetails['fName']);
+                    $("#lastName").val(userDetails['lName']);
+                    $("#userEmail").val(userDetails['userEmail']);
+                    $("#regDate").append(userDetails['regDate'].substring(0,11));
+                }
+            });
+        })
+
         //enable inputs
         $("#editDetails").click(function (e){
             e.preventDefault();

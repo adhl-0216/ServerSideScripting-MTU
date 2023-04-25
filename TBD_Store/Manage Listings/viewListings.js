@@ -10,13 +10,22 @@ $(function (){
             createCategoryHeader(productType);
             createItems(productType, response);
         }
-    })
-
-    $(".btnAddToCart").click(function (){
-        $.ajax({
-            url: ".addToCart.php",
-            type: "POST",
-            data: {prodID : $(this).val()}
+    }).then(function (){
+        $("#productsList :input").click(function (){
+            $.get("../Manage User/.userSession.php", function (data){
+                if (data === "N/A") {
+                    location.href = "../Manage User/signIn.php";
+                }
+            })
+            let prodID = $(this).parent().parent().parent().attr('id');
+            $.ajax({
+                url: ".addToCart.php",
+                type: "POST",
+                data: {prodID : prodID},
+                success: function (){
+                    console.log(prodID);
+                }
+            })
         })
     })
 });
@@ -49,7 +58,7 @@ function createItems(productType, response){
                         <span>${product['PRODUCT_NAME']}</span>
                         <span>&euro;${product['PRICE']}</span>
                         <span>${product['PRODUCT_DESCRIPTION']}</span>
-                        <button class="btnAddToCart" value="${product['PRODUCT_ID']}">ADD TO CART</button>
+                        <input type="button" value="ADD TO CART">
                     </div>
                 </div>
             </li>

@@ -1,5 +1,5 @@
 <?php include "../css/myHeader.html" ?>
-<script async rel="text/javascript" src="viewListings.js"></script>
+<script type="text/javascript" src="viewListings.js"></script>
 <nav>
     <div>
         <ul >

@@ -1,9 +1,9 @@
 body {
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 100px;
+    margin: 64px;
     box-sizing: border-box;
-    background: rgb(248, 248, 248);
+    background: white;
 }
 
 
@@ -141,7 +141,7 @@ nav ul {
     background-color: white;
 }
 
-.productItem li {
+.productItem ul {
     list-style: none;
     display: inline-grid;
 }
