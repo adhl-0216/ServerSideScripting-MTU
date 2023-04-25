@@ -5,9 +5,9 @@ if (isset($_POST['deleteUser'])) {
     try {
         dbConnect($pdo);
 
-        $sqlDelete = 'DELETE FROM users WHERE USER_NAME=:username';
+        $sqlDelete = 'DELETE FROM users WHERE USER_ID=:userID';
         $result = $pdo->prepare($sqlDelete);
-        $result->bindValue(':username',$_SESSION['username']);
+        $result->bindValue(':userID',$_SESSION['userID']);
         $result->execute();
 
         if ($result->rowCount() > 0) {

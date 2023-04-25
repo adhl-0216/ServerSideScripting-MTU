@@ -1,11 +1,14 @@
 body {
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 64px;
+    margin: 0 64px 64px;
     box-sizing: border-box;
     background: white;
 }
 
+.cart {
+    list-style-type: none;
+}
 
 .button-style {
     background-color: #8dbdff;
@@ -141,11 +144,19 @@ nav ul {
     background-color: white;
 }
 
-.productItem ul {
-    list-style: none;
-    display: inline-grid;
+.productItem{
+    list-style-type: none;
+    display: inline-flex;
 }
 
 .productItem li :hover {
     background: lightgrey;
+}
+
+.cart tr th {
+    text-align: left;
+}
+
+.cart, tr, td{
+    border: 1px black solid;
 }

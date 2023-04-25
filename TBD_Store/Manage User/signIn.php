@@ -16,6 +16,7 @@
         <input type="password" name="password">
     </label>
     <input type="submit" name="login" value="SIGN IN">
+    <span class="errMsg" hidden="hidden">Invalid Credentials</span>
 </form>
 Don't have an account? <a href="signUp.php">Sign Up here.</a>
 </body>

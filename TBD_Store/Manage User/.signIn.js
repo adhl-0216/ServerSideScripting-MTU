@@ -22,10 +22,13 @@ $(document).ready(function() {
                 if (jsonRes['isValid'] === true) {
                     window.location.href = '../Homepage/index.php';
                 } else {
-                    $("#signInForm").append("Invalid Credentials")
+                    $(".errMsg").show().fadeOut(1000);
                 }
             }
         });
+
+
+
     });
 
 });

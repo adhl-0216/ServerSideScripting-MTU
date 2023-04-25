@@ -8,10 +8,12 @@ function verify_login(&$user, $password): bool
     $stmt = $pdo->prepare($sqlSelect);
     $stmt->bindValue(':user', $user);
     $stmt->execute();
-    $row = $stmt->fetch();
-    $user = $row['USER_ID'];
-    $psw = $row['USER_PASSWORD'];
-    return password_verify($password, $psw);
+    if($row = $stmt->fetch()) {
+        $user = $row['USER_ID'];
+        $psw = $row['USER_PASSWORD'];
+        return password_verify($password, $psw);
+    }
+    return false;
 }
 
 if (isset($_POST)){

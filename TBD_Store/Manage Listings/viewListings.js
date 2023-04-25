@@ -49,7 +49,7 @@ function createItems(productType, response){
     for (const product of allInventory) {
         let imgID = productType + product['PRODUCT_ID'].toString().padStart(2,'0');
         $('#productsList').append(`
-            <li class="productItem" id="${product['PRODUCT_ID']}">
+            <li class="productItem" id="${productType+product['PRODUCT_ID']}">
                 <div>
                     <div class="productImage">
                         <img src="../rsc/${productType}/${imgID}.webp" alt="${imgID}" title="${imgID}">

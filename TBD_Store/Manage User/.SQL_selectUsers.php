@@ -1,9 +1,25 @@
 <?php
 include '../.dbConnect.php';
-if (isset($_POST['userID'])){
-    $userID = $_POST['userID'];
+$userID = $_POST['userID'];
+dbConnect($pdo);
+
+if (isset($_POST['oldPassword'])){
     try {
-        dbConnect($pdo);
+        $sqlSelect="SELECT USER_PASSWORD FROM tbd_store.users WHERE USER_ID=:userID";
+        $stmt = $pdo->prepare($sqlSelect);
+        $stmt->bindValue(":userID", $userID);
+        $stmt->execute();
+        if ($row=$stmt->fetch()){
+            echo (password_verify($_POST['oldPassword'], $row['USER_PASSWORD'])) ? "valid" : "invalid";
+        }
+        return;
+    }catch (PDOException $ex){
+
+    }
+}
+
+if (isset($_POST['userID'])){
+    try {
 
         $sqlSelect = 'SELECT * FROM tbd_store.users WHERE USER_ID=:userID';
         $stmt = $pdo->prepare($sqlSelect);
@@ -19,8 +35,11 @@ if (isset($_POST['userID'])){
             'regDate'=>$row['REGISTRATION_DATE'],
         );
         echo json_encode($userInfo);
+        return;
     }
     catch (PDOException $ex){
 
     }
 }
+
+
