@@ -7,8 +7,9 @@
 <table id="cartItems" class="cart">
     <tr><th>Items</th></tr>
 </table>
-    <button type="button" id="btnCheckOut">CHECK OUT</button>
-    <button type="button" id="btnClear">CLEAR CART</button>
+    <p id="subtotal"></p>
+    <a href="" class="button-style" id="btnCheckOut">CHECK OUT</a>
+    <a href="" class="button-style" id="btnClear">CLEAR CART</a>
 </form>
 </body>
 <?php include "../css/myFooter.html"?>

@@ -1,10 +1,4 @@
 <?php include "../css/myHeader.html" ?>
-<?php
-    session_start();
-    if (isset($_POST['signOut'])) {
-        session_destroy();
-    }
-?>
 <script async src=".homepageNav.js"></script>
 <nav>
     <div>

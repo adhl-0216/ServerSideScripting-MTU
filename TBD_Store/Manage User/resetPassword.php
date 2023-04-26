@@ -67,6 +67,7 @@ $userID = $_SESSION['userID'];
 
 </script>
 <body>
+<a href="userProfile.php">Back to Profile</a>
 <h1>Password Reset</h1>
 <div id="resetPassword">
     <form>

@@ -19,7 +19,7 @@
 
     <tr><td>EMAIL</td>
       <td>
-        <label><input type="text" name="USER_EMAIL" required></label>
+        <label><input type="email" name="USER_EMAIL" required></label>
       </td>
     </tr>
 

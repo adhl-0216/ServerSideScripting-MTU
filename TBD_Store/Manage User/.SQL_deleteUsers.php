@@ -6,16 +6,17 @@ if (isset($_POST['deleteUser'])) {
         dbConnect($pdo);
 
         $sqlDelete = 'DELETE FROM users WHERE USER_ID=:userID';
-        $result = $pdo->prepare($sqlDelete);
-        $result->bindValue(':userID',$_SESSION['userID']);
-        $result->execute();
+        $stmt = $pdo->prepare($sqlDelete);
+        $stmt->bindValue(':userID',$_SESSION['userID']);
+        $stmt->execute();
 
-        if ($result->rowCount() > 0) {
-            echo 'success';
+        if ($stmt->rowCount() > 0) {
+            echo 100;
         }else{
-            echo 'failure';
+            echo 500;
         }
     }catch (PDOException $ex) {
+        echo 500;
         echo $ex->getMessage().'; '.$ex->getTraceAsString();
     }
 }

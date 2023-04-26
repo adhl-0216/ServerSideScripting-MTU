@@ -8,60 +8,7 @@ if(isset($_SESSION['userID'])) {
 else header("Location: ../Homepage/index.php");
 
 ?>
-<script>
-    $(function (){
-        function convertFormToJSON(form) {
-            return $(form)
-                .serializeArray()
-                .reduce(function (json, { name, value }) {
-                    json[name] = value;
-                    return json;
-                }, {});
-        }
-        let userID;
-
-        $.get("../Manage User/.userSession.php", function (response){
-            userID = response;
-            console.log(userID);
-        }).then(function (){
-            //fetch user profile
-            $.ajax({
-                url: ".SQL_selectUsers.php",
-                type: "POST",
-                data: {userID: userID},
-                success: function (response){
-                    let userDetails = JSON.parse(response);
-                    console.log(userDetails);
-                    $("#firstName").val(userDetails['fName']);
-                    $("#lastName").val(userDetails['lName']);
-                    $("#userEmail").val(userDetails['userEmail']);
-                    $("#regDate").append(userDetails['regDate'].substring(0,11));
-                }
-            });
-        })
-
-        //enable inputs
-        $("#editDetails").click(function (e){
-            e.preventDefault();
-            $("#userDetails form :input").prop("disabled",false);
-            $(this).prop("disabled",true);
-        })
-        //update details
-        $("#userDetails form").submit(function (e){
-            e.preventDefault();
-            console.log(convertFormToJSON($(this)));
-            $.ajax({
-                type: "POST",
-                url: ".SQL_updateUser.php",
-                data: convertFormToJSON($(this)),
-                success: function (){
-                    console.log("success");
-                    location.reload();
-                }
-            })
-        })
-    });
-</script>
+<script type="text/javascript" src=".userProfile.js"></script>
 
 <body>
 <h1>Profile Information</h1>
@@ -84,12 +31,7 @@ if ($userID === 0){
     echo "<a href='../Manage%20Inventory/inventoryManagement.php' class='button-style'>Inventory Management</a>";
 }
 ?>
-
-<form method="post" action="../Homepage/index.php">
-    <input type="submit" name="signOut" value="SIGN OUT">
-</form>
-<form method="post" action=".SQL_deleteUsers.php">
-    <input type="submit" name="deleteUser" value="TERMINATE ACCOUNT">
-</form>
+<a href="" class="button-style" id="signOut">Sign Out</a>
+<a href="" class="button-style button-style-red" id="deleteUser">Terminate Account</a>
 </body>
 <?php include "../css/myFooter.html" ?>

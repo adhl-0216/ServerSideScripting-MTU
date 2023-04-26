@@ -15,6 +15,17 @@ $(function (){
             refreshCart();
         })
     })
+
+    $("#btnCheckOut").click(function (e){
+        e.preventDefault();
+        let checked = $("#cartItems :input:checked");
+        checked.each(function (){
+            let prodID = $(this).prop("name")
+            console.log(prodID)
+            let parent = $(this).parent().siblings("td:has(label)")
+            console.log(parent.children().children("span.price").text())
+        })
+    })
 })
 
 function refreshCart() {
@@ -22,7 +33,7 @@ function refreshCart() {
     let table = $("#cartItems");
     $.get("../Manage Listings/.addToCart.php", function (data) {
         cartItems = JSON.parse(data);
-        console.log(cartItems);
+        // console.log(cartItems);
         if (cartItems.length === 0) {
             table.remove();
             $("form").prepend("No items in the cart.");
@@ -34,8 +45,9 @@ function refreshCart() {
                 data: {prodID: item.substring(2)},
                 success: function (response){
                     let prodDetails = JSON.parse(response);
-                    let itemText = prodDetails['prodName']+"<br>"+prodDetails['prodDesc']+"<br>"+"UK Size: "+prodDetails['ukSize']+" &euro;"+prodDetails['price']
-                    table.append(`<tr><td><label>${itemText}</td><td><input type="checkbox"></label></td></tr>`)
+                    let imgID = item.substring(0,2)+item.substring(2).padStart(2,'0');
+                    let itemText = prodDetails['prodName']+"<br>"+prodDetails['prodDesc']+"<br>"+"UK Size: "+prodDetails['ukSize']+" &euro;<span class='price'>"+prodDetails['price']+"</span>";
+                    table.append(`<tr><td><img src="../rsc/${prodDetails['prodType']}/${imgID}.webp" alt="${prodDetails['prodName']}" title="${item}"></td><td><label class="form-control">${itemText}</td><td><input type="checkbox" name="${item}"></label></td></tr>`);
                 }
             })
 
