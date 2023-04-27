@@ -1,20 +1,20 @@
 <?php
-session_start();
+//session_start();
+include "../.dbConnect.php";
 $status = $_POST['sqlFunc'];
-$_SESSION['status'] = $status;
+//$_SESSION['status'] = $status;
+dbConnect($pdo);
 
-function getConnection(): PDO
-{
-    $pdo = new PDO('mysql:host=localhost;db_name=tbd_store;charset=utf8','root','');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    return $pdo;
-}
 if ($status == "insert") insertInventory();
+if ($status == "update") updateInventory();
+if ($status == "select") selectInventory();
+if ($status == "delete") deleteInventory();
+
 function insertInventory(){
+    global $pdo;
     try {
         if (isset($_POST['data'])) {
             $product = $_POST['data'];
-            $pdo = getConnection();
             $sqlInsert = 'INSERT INTO tbd_store.inventory (PRODUCT_TYPE, PRODUCT_NAME, PRODUCT_DESCRIPTION, UK_SIZE, PRICE, QUANTITY) VALUES (:prodType, :prodName, :prodDesc, :ukSize, :price, :quantity)';
             $pStmt = $pdo->prepare($sqlInsert);
             $pStmt->bindValue(':prodType', $product['PRODUCT_TYPE']);
@@ -32,10 +32,10 @@ function insertInventory(){
         echo $errMsg;
     }
 }
-if ($status == "select") selectInventory();
 function selectInventory(){
+    global $pdo;
+
     try {
-        $pdo = getConnection();
         $sqlSelectInventory = 'SELECT * FROM tbd_store.inventory';
         $pStmt = $pdo->prepare($sqlSelectInventory);
         $pStmt->execute();
@@ -61,17 +61,13 @@ function selectInventory(){
         echo $errMsg;
     }
 }
-
-
-/**
- * @throws ErrorException
- */
 function deleteInventory()
 {
+    global $pdo;
+
     try {
         if (isset($_POST['data'])) {
             $prodID = $_POST['data'];
-            $pdo = getConnection();
             $sqlDeleteInv = 'DELETE FROM tbd_store.inventory WHERE PRODUCT_ID=:prodID';
             $pStmt = $pdo->prepare($sqlDeleteInv);
             $pStmt->bindValue(':prodID', $prodID);
@@ -81,22 +77,16 @@ function deleteInventory()
     }
     catch (PDOException $ex) {
         $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();
-        throw new ErrorException("Delete failed".$errMsg);
+        echo $errMsg;
     }
 }
-
-if ($status == "delete") try {
-    deleteInventory();
-} catch (ErrorException $e) {
-}
-
 function updateInventory()
 {
+    global $pdo;
+
     try {
         if (isset($_POST['data'])) {
             $data = $_POST['data'];
-            var_dump($data);
-            $pdo = getConnection();
             $sqlUpdateInv = 'UPDATE tbd_store.inventory SET PRODUCT_NAME=:prodName, PRODUCT_DESCRIPTION=:prodDesc, PRICE=:price, QUANTITY=:quantity WHERE PRODUCT_ID=:prodID';
             $pStmt = $pdo->prepare($sqlUpdateInv);
             $pStmt->bindValue(':prodName', $data['prodName']);
@@ -111,11 +101,5 @@ function updateInventory()
     catch (PDOException $ex) {
         $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();
         echo $errMsg;
-//        throw new ErrorException("Delete failed".$errMsg);
     }
 }
-
-if ($status == "update") updateInventory();
-
-
-

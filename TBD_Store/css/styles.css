@@ -14,19 +14,95 @@ body {
     margin: 0 64px 64px;
     box-sizing: border-box;
     background: white;
+    display: inline-block;
+}
+
+.form {
+    display: grid;
+    grid-gap: 1rem;
+}
+.field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgrey;
+    padding: .5rem;
+    border-radius: .25rem;
+}
+
+.field__label {
+    color: gray;
+    font-size: 0.6rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem
+}
+
+.field__input {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: 0;
+    font-weight: bold;
+    font-size: 1rem;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+}
+.field:focus-within {
+    border-color: #000;
+}
+
+.fields {
+    display: grid;
+    grid-gap: 1rem;
+}
+
+.fields--2 {
+    grid-template-columns: 1fr 1fr;
+}
+.fields--3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button {
+    background-color: #8dbdff;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: block;
+    color: #fff;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+}
+
+.button:hover,
+.button-style:hover
+{
+    background-color: #2e85ff;
 }
 
 .button-style {
     background-color: #8dbdff;
     color: white;
     padding: 15px 25px;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     margin-top: 20px;
     text-decoration: none;
 }
 
 .button-style-red {
     background-color: red;
+}
+
+div.buttons-container {
+    display: inline-block;
+    line-height: 3.5em;
 }
 
 .errMsg {
@@ -71,11 +147,11 @@ nav ul {
     margin: auto;
 }
 
-
 .sticky {
     position: fixed;
 }
 
+/*carousel*/
 .slide  {
     text-decoration: none;
     color: inherit;
@@ -155,6 +231,7 @@ nav ul {
 #slide-btn-3:checked ~ .labels label[for="slide-btn-3"] {
     background-color: white;
 }
+
 /*Cart.php*/
 .productItem{
     list-style-type: none;
@@ -199,5 +276,21 @@ table.cart{
     display: flow;
 }
 
+/*checkOut.php*/
+p.checkOut_subtotal {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    background: #6a8a27;
+    padding: 10px 20px 20px 10px;
+}
 
+#paymentInfo input[type="number"] {
+    -moz-appearance: textfield;
+}
 
+#paymentInfo input::-webkit-outer-spin-button,
+#paymentInfo input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

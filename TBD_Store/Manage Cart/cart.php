@@ -1,9 +1,11 @@
-<?php include "../css/myHeader.html"?>
+<?php include "../css/myHeader.html";
+session_start();
+?>
 
 <script type="text/javascript" src=".generateCart.js"></script>
 <body>
 <h1>Your Cart</h1>
-<form>
+<div class="form-container">
 <table id="cartItems" class="cart">
     <tr><th>Items</th></tr>
 </table>
@@ -11,6 +13,6 @@
 
     <a href="" class="button-style" id="btnCheckOut">CHECK OUT</a>
     <a href="" class="button-style" id="btnClear">CLEAR CART</a>
-</form>
+</div>
 </body>
 <?php include "../css/myFooter.html"?>

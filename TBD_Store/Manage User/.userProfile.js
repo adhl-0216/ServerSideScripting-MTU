@@ -12,6 +12,10 @@ $(function (){
     $.get("../Manage User/.userSession.php", function (response){
         if (response==="N/A") location.href = "../Homepage/index.php"
         userID = response;
+        if (userID === "0"){
+            $("div.buttons-container").append("<br><a href='../Manage%20Inventory/inventoryManagement.php' class='button-style'>Inventory Management</a>")
+        }
+        console.log(userID);
     }).then(function (){
         //fetch user profile
         $.ajax({

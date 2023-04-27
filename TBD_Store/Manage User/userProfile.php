@@ -25,13 +25,11 @@ else header("Location: ../Homepage/index.php");
     </form>
     <p id="regDate">Registration Date: </p>
 </div>
-<a href="resetPassword.php" class="button-style">Change Password</a>
-<?php
-if ($userID === 0){
-    echo "<a href='../Manage%20Inventory/inventoryManagement.php' class='button-style'>Inventory Management</a>";
-}
-?>
-<a href="" class="button-style" id="signOut">Sign Out</a>
-<a href="" class="button-style button-style-red" id="deleteUser">Terminate Account</a>
+<div class="buttons-container">
+    <a href="resetPassword.php" class="button-style">Change Password</a>
+    <a href="" class="button-style" id="signOut">Sign Out</a>
+    <a href="" class="button-style button-style-red" id="deleteUser">Terminate Account</a>
+</div>
+
 </body>
 <?php include "../css/myFooter.html" ?>

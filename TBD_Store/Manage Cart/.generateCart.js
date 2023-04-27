@@ -17,21 +17,50 @@ $(function (){
     })
 
     //checkOut
-    let checkOutItems;
+    let prodIDs;
     $("#btnCheckOut").click(function (e){
         e.preventDefault();
-        checkOutItems = [];
+        prodIDs = [];
         let checked = $("#cartItems :input:checked");
         checked.each(function (){
             let prodID = $(this).prop("name")
-            checkOutItems.push(prodID)
+             prodIDs.push(prodID)
         })
 
-        let totalPrice = $("#subtotal").text().toString().substring(2);
+        let checkOutItems = {}
+        for (const prodID of prodIDs) {
+            if (checkOutItems[prodID]){
+                checkOutItems[prodID] += 1;
+            }else {
+                checkOutItems[prodID] = 1;
+            }
+        }
 
-        $.post(".checkOut.php", {prodID: JSON.stringify(checkOutItems), subtotal: totalPrice})
-        console.log(checkOutItems);
-        console.log(totalPrice);
+        let subtotal = $("#subtotal").text().toString().substring(2);
+
+        // let url = "../Manage Inventory/.newSale.php";
+        let url = ".checkOut.php";
+
+        let  form = $(document.createElement('form'));
+        $(form).attr("action", url);
+        $(form).attr("method", "POST");
+        $(form).css("display", "none");
+
+        let input_prodID = $("<input>")
+            .attr("type", "text")
+            .attr("name", "checkOutItems")
+            .val(JSON.stringify(checkOutItems));
+        $(form).append($(input_prodID));
+
+        let input_subtotal = $("<input>")
+            .attr("type", "text")
+            .attr("name", "subtotal")
+            .val(subtotal);
+        $(form).append($(input_subtotal));
+
+        form.appendTo( document.body );
+        $(form).submit();
+
     })
 
 
