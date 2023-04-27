@@ -7,7 +7,8 @@
 <table id="cartItems" class="cart">
     <tr><th>Items</th></tr>
 </table>
-    <p id="subtotal"></p>
+    <p><strong>SUBTOTAL: </strong><span id="subtotal"></span></p>
+
     <a href="" class="button-style" id="btnCheckOut">CHECK OUT</a>
     <a href="" class="button-style" id="btnClear">CLEAR CART</a>
 </form>

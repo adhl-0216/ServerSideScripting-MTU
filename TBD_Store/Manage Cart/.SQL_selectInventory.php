@@ -2,25 +2,33 @@
 include "../.dbConnect.php";
 dbConnect($pdo);
 if (isset($_POST['prodID'])){
-    try {
-        $sqlSelect = "SELECT * FROM tbd_store.inventory WHERE PRODUCT_ID=:prodID";
-        $stmt = $pdo->prepare($sqlSelect);
-        $stmt->bindValue(":prodID", $_POST['prodID']);
-        $stmt->execute();
+    $json = json_decode($_POST['prodID']);
+    $allProducts = array();
+    foreach ($json as $prodID) {
 
-        if($row=$stmt->fetch()){
-            $prodDetails = array(
-                'prodType' => $row['PRODUCT_TYPE'],
-                'prodName'=>$row['PRODUCT_NAME'],
-                'prodDesc'=>$row['PRODUCT_DESCRIPTION'],
-                'ukSize'=>$row['UK_SIZE'],
-                'price'=>$row['PRICE'],
-            );
+        try {
+            $sqlSelect = "SELECT * FROM tbd_store.inventory WHERE PRODUCT_ID=:prodID";
+            $stmt = $pdo->prepare($sqlSelect);
+            $stmt->bindValue(":prodID", substr($prodID,2));
+            $stmt->execute();
 
-            echo json_encode($prodDetails);
-            return;
+            while($row=$stmt->fetch()){
+                $prodDetails = array(
+                    'prodID' => $row['PRODUCT_ID'],
+                    'prodType' => $row['PRODUCT_TYPE'],
+                    'prodName'=>$row['PRODUCT_NAME'],
+                    'prodDesc'=>$row['PRODUCT_DESCRIPTION'],
+                    'ukSize'=>$row['UK_SIZE'],
+                    'price'=>$row['PRICE'],
+                );
+                $allProducts[] = $prodDetails;
+//                echo json_encode($prodDetails);
+            }
+        }catch (PDOException $ex){
+            echo $ex->getMessage().$ex->getTraceAsString();
         }
-    }catch (PDOException $ex){
-        echo $ex->getMessage().$ex->getTraceAsString();
+
     }
+
+    echo json_encode($allProducts);
 }
