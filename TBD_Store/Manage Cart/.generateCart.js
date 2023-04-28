@@ -16,15 +16,11 @@ $(function (){
         })
     })
 
-    //checkOut
-    let prodIDs;
-    $("#btnCheckOut").click(function (e){
+    $("#btnCheckOut").click(function (e) {
         e.preventDefault();
-        prodIDs = [];
-        let checked = $("#cartItems :input:checked");
-        checked.each(function (){
-            let prodID = $(this).prop("name")
-             prodIDs.push(prodID)
+        let prodIDs = [];
+        $(".btnRemove").each(function (){
+            prodIDs.push($(this).attr("name"))
         })
 
         let checkOutItems = {}
@@ -36,9 +32,10 @@ $(function (){
             }
         }
 
-        let subtotal = $("#subtotal").text().toString().substring(2);
+        console.log(checkOutItems)
 
-        // let url = "../Manage Inventory/.newSale.php";
+        let subtotal = $("#subtotal").text();
+
         let url = ".checkOut.php";
 
         let  form = $(document.createElement('form'));
@@ -58,12 +55,15 @@ $(function (){
             .val(subtotal);
         $(form).append($(input_subtotal));
 
-        form.appendTo( document.body );
+        form.appendTo($(document.body));
+
+        $.post(".clearCart.php",function(response){
+            console.log(response);
+            refreshCart();
+        })
+
         $(form).submit();
-
     })
-
-
 })
 
 function refreshCart() {
@@ -71,10 +71,12 @@ function refreshCart() {
     let table = $("#cartItems");
     $.get("../Manage Listings/.addToCart.php", function (data) {
         cartItems = JSON.parse(data);
-        // console.log(cartItems);
+        console.log(cartItems.length)
         if (cartItems.length === 0) {
+            console.log("empty")
             table.remove();
-            $("form").prepend("No items in the cart.");
+            $("div.form-container").remove();
+            $("footer").before($("<div>No items in the cart.</div>"));
         }
     }).then(function (){
         let prodDetails;
@@ -89,22 +91,15 @@ function refreshCart() {
             for (const prodDetail of prodDetails) {
                 let imgID = prodDetail['prodType'] + prodDetail['prodID'].padStart(2, '0');
                 let itemText = prodDetail['prodName'] + "<br>" + prodDetail['prodDesc'] + "<br>" + "UK Size: " + prodDetail['ukSize'] + " &euro;<span class='price'>" + prodDetail['price'] + "</span>";
-                table.append(`<tr><td><img src="../rsc/${prodDetail['prodType']}/${imgID}.webp" alt="${prodDetail['prodName']}" title="${prodDetail['prodID']}"></td><td><label class="form-control">${itemText}</td><td><input type="checkbox" name="${prodDetail['prodID']}" title="${prodDetail['prodName']}"></label></td></tr>`);
+                table.append(`<tr><td><img src="../rsc/${prodDetail['prodType']}/${imgID}.webp" alt="${prodDetail['prodName']}" title="${prodDetail['prodID']}"></td><td><label class="form-control">${itemText}</td><td><input type="button" class="btnRemove" name="${prodDetail['prodID']}" value="REMOVE" /></label></td></tr>`);
             }
         }).then(function (){
-            let totalPrice = 0;
-            let checkBoxes = $("#cartItems :input[type='checkbox']");
-            checkBoxes.change(function (){
-                let price = $(this).parent().siblings("td:has(label)").children().children("span.price").text();
-
-                if(this.checked){
-                    totalPrice+=Number(price);
-                }
-                else if(!this.checked){
-                    totalPrice-=Number(price);
-                }
-                $("#subtotal").html("&euro; "+totalPrice.toFixed(2))
+            let totalPrice = 0 ;
+            let price = $("span.price");
+            price.each(function (){
+                totalPrice += Number($(this).text())
             })
+            $("#subtotal").text(totalPrice.toFixed(2))
         })
     })
 }

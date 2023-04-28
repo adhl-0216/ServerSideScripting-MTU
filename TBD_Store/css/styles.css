@@ -17,6 +17,10 @@ body {
     display: inline-block;
 }
 
+table {
+    border-spacing: 0;
+}
+
 .form {
     display: grid;
     grid-gap: 1rem;
@@ -97,7 +101,11 @@ body {
 }
 
 .button-style-red {
-    background-color: red;
+    background-color: #ff4848;
+}
+
+.button-style-red:hover {
+    background-color: #fc0202;
 }
 
 div.buttons-container {
@@ -231,14 +239,21 @@ nav ul {
 #slide-btn-3:checked ~ .labels label[for="slide-btn-3"] {
     background-color: white;
 }
+/*Purchase History*/
+table, tr, th, td {
+    border-spacing: 0;
+    border: 1px solid black;
+}
 
 /*Cart.php*/
 .productItem{
     list-style-type: none;
     display: inline-flex;
+    padding: 8px;
+    border-radius: 6px;
 }
 
-.productItem li :hover {
+.productItem:hover {
     background: lightgrey;
 }
 

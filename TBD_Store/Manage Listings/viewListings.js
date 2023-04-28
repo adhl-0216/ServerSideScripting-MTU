@@ -12,6 +12,7 @@ $(function (){
         }
     }).then(function (){
         $("#productsList :input").click(function (){
+            alert("Added to Cart!")
             $.get("../Manage User/.userSession.php", function (data){
                 if (data === "N/A") {
                     location.href = "../Manage User/signIn.php";
@@ -55,10 +56,10 @@ function createItems(productType, response){
                         <img src="../rsc/${productType}/${imgID}.webp" alt="${imgID}" title="${imgID}">
                     </div>
                     <div class="productDetails">
-                        <span>${product['PRODUCT_NAME']}</span>
-                        <span>&euro;${product['PRICE']}</span>
-                        <span>${product['PRODUCT_DESCRIPTION']}</span>
-                        <input type="button" value="ADD TO CART">
+                        <p><strong>${product['PRODUCT_NAME']}</strong></p>
+                        <p>${product['PRODUCT_DESCRIPTION']}</p>
+                        <p>&euro; ${product['PRICE']}</p>
+                        <input type="button" value="ADD TO CART" class="button btnAddToCart">
                     </div>
                 </div>
             </li>

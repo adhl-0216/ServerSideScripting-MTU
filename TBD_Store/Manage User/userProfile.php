@@ -25,10 +25,13 @@ else header("Location: ../Homepage/index.php");
     </form>
     <p id="regDate">Registration Date: </p>
 </div>
+<hr>
 <div class="buttons-container">
     <a href="resetPassword.php" class="button-style">Change Password</a>
     <a href="" class="button-style" id="signOut">Sign Out</a>
     <a href="" class="button-style button-style-red" id="deleteUser">Terminate Account</a>
+    <br>
+    <a href="purchaseHistory.php" class="button-style" id="purchaseHistory">Purchase History</a>
 </div>
 
 </body>

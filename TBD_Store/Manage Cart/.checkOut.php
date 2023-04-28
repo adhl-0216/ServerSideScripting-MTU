@@ -5,7 +5,7 @@ $_SESSION['checkOutItems'] = $_POST['checkOutItems'];
 unset($_SESSION['prodID']);
 ?>
 <body>
-<form>
+<form id="checkOutForm">
 <h1>Check Out</h1>
 <p class="checkOut_subtotal"><strong>SUBTOTAL: &euro; </strong><span id="subtotal"><?php if(isset($_SESSION['subtotal'])) echo $_SESSION['subtotal'] ?></span></p>
 <div id="shippingInfo" class="container">
@@ -90,19 +90,16 @@ unset($_SESSION['prodID']);
 
         $("#continue").click(function (e){
             e.preventDefault();
-            let form = $("form")
-            let url = "../Manage User/.SQL_insertUserInfo.php"
-            if (form[0].reportValidity()) {
-                form
-                    .attr("action", url)
-                    .attr("method", "POST")
-                    .submit()
-                    .then(function (){
+            let form = $("#checkOutForm");
+            if (form.get(0).reportValidity()){
+                let data = form.serializeArray();
+                let url = "../Manage User/.SQL_insertUserInfo.php"
+                $.post(url, data, function (response) {
                     location.href = "../Manage Inventory/.newSale.php"
-                });
+                    console.log(response);
+                })
+
             }
-
-
         })
     })
 </script>

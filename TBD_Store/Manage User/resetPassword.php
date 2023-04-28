@@ -67,23 +67,34 @@ $userID = $_SESSION['userID'];
 
 </script>
 <body>
-<a href="userProfile.php">Back to Profile</a>
-<h1>Password Reset</h1>
-<div id="resetPassword">
-    <form>
-        <label>Current Password
-            <input type="password" name="oldPassword">
-        </label>
-        <label>Password
-            <input type="password" name="password">
-        </label>
-        <label>Confirm Password
-            <input type="password" name="cfmPassword">
-        </label>
-        <input type="submit" value="Change Password">
-        <p class="errMsg" hidden="hidden">Passwords do not match.</p>
-    </form>
+<br>
+<br>
+<br>
+
+<div id="resetPassword" class="container">
+    <a href="userProfile.php" class="button-style">Back to Profile</a>
+    <h1>Password Reset</h1>
+    <div class="form">
+        <form>
+            <label class="field">
+                <span class="field__label">Current Password</span>
+                <input type="password" name="oldPassword" class="field__input">
+            </label>
+            <label class="field">
+                <span class="field__label">Password</span>
+                <input type="password" name="password" class="field__input">
+            </label>
+            <label class="field">
+                <span class="field__label">Confirm Password</span>
+                <input type="password" name="cfmPassword" class="field__input">
+            </label>
+            <hr>
+            <input type="submit" value="Change Password" class="button">
+            <p class="errMsg" hidden="hidden">Passwords do not match.</p>
+        </form>
+    </div>
 </div>
+
 <div id="resetSuccess"></div>
 </body>
 <?php include "../css/myFooter.html"?>

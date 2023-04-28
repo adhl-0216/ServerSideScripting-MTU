@@ -9,7 +9,7 @@ session_start();
 <table id="cartItems" class="cart">
     <tr><th>Items</th></tr>
 </table>
-    <p><strong>SUBTOTAL: </strong><span id="subtotal"></span></p>
+    <p><strong>SUBTOTAL: &euro; </strong><span id="subtotal"></span></p>
 
     <a href="" class="button-style" id="btnCheckOut">CHECK OUT</a>
     <a href="" class="button-style" id="btnClear">CLEAR CART</a>

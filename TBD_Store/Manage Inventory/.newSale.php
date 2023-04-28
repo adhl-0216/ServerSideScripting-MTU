@@ -1,4 +1,4 @@
-
+<?php include "../css/myHeader.html";?>
 <?php
 include "../.dbConnect.php";
 session_start();
@@ -51,8 +51,7 @@ if (isset($_SESSION['checkOutItems'])){
         }
     }
 
-
+    echo "Purchase successful!";
 }
 ?>
-
-
+<?php include "../css/myFooter.html";?>
