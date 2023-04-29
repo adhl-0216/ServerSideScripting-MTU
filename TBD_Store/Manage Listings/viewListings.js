@@ -11,20 +11,23 @@ $(function (){
             createItems(productType, response);
         }
     }).then(function (){
+        let userID;
         $("#productsList :input").click(function (){
-            alert("Added to Cart!")
+            let prodID = $(this).parent().parent().parent().attr('id');
             $.get("../Manage User/.userSession.php", function (data){
                 if (data === "N/A") {
                     location.href = "../Manage User/signIn.php";
-                }
-            })
-            let prodID = $(this).parent().parent().parent().attr('id');
-            $.ajax({
-                url: ".addToCart.php",
-                type: "POST",
-                data: {prodID : prodID},
-                success: function (){
-                    console.log(prodID);
+                }else {
+                    userID = data;
+                    $.ajax({
+                        url: ".addToCart.php",
+                        type: "POST",
+                        data: {prodID : prodID},
+                        success: function (){
+                            console.log(prodID);
+                            alert("Added to Cart!")
+                        }
+                    })
                 }
             })
         })
@@ -46,14 +49,14 @@ function createCategoryHeader(productType) {
 }
 function createItems(productType, response){
     let allInventory = JSON.parse(response);
-
     for (const product of allInventory) {
-        let imgID = productType + product['PRODUCT_ID'].toString().padStart(2,'0');
+        let imgID = product['PRODUCT_IMG'];
+        console.log(imgID);
         $('#productsList').append(`
             <li class="productItem" id="${productType+product['PRODUCT_ID']}">
-                <div>
+                <div class="product-container">
                     <div class="productImage">
-                        <img src="../rsc/${productType}/${imgID}.webp" alt="${imgID}" title="${imgID}">
+                        <img src="../rsc/${productType}/${imgID}" alt="${imgID}" title="${imgID}">
                     </div>
                     <div class="productDetails">
                         <p><strong>${product['PRODUCT_NAME']}</strong></p>

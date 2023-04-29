@@ -16,7 +16,7 @@ $(function (){
             $.ajax({
                 url: ".SQL_insertUsers.php",
                 type: "POST",
-                data: convertFormToJSON($(this)),
+                data: $(this).serializeArray(),
                 success: function (response) {
                     if (response === "success"){
                         $("#success").show();

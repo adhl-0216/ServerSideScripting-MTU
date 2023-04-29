@@ -20,6 +20,7 @@ if (isset($_POST['prodID'])){
                     'prodDesc'=>$row['PRODUCT_DESCRIPTION'],
                     'ukSize'=>$row['UK_SIZE'],
                     'price'=>$row['PRICE'],
+                    'prodImg'=>$row['PRODUCT_IMG'],
                 );
                 $allProducts[] = $prodDetails;
 //                echo json_encode($prodDetails);

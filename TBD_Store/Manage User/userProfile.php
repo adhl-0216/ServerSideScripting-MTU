@@ -5,8 +5,7 @@ $userID = null;
 if(isset($_SESSION['userID'])) {
     $userID = $_SESSION['userID'];
 }
-else header("Location: ../Homepage/index.php");
-
+else header("Location: signIn.php");
 ?>
 <script type="text/javascript" src=".userProfile.js"></script>
 
@@ -14,12 +13,12 @@ else header("Location: ../Homepage/index.php");
 <h1>Profile Information</h1>
 <div id="userDetails">
     <form name="updateForm">
-        <label for="firstName">FIRST NAME </label><input type="text" id="firstName" name="firstName" disabled>
-        <br>
-        <label for="lastName">LAST NAME </label><input type="text" id="lastName" name="lastName" disabled>
-        <br>
-        <label for="userEmail">EMAIL </label><input type="email" id="userEmail" name="userEmail" disabled>
-        <br>
+        <table id="profileDetails">
+            <tr>
+                <td><label for="userEmail">Email:&nbsp&nbsp</label></td>
+                <td><input type="email" id="userEmail" name="userEmail" disabled></td>
+            </tr>
+        </table>
         <button id="editDetails">Edit</button>
         <input type="submit" name="updateDetails" value="Save Changes" disabled>
     </form>
@@ -27,11 +26,15 @@ else header("Location: ../Homepage/index.php");
 </div>
 <hr>
 <div class="buttons-container">
+    <a href="purchaseHistory.php" class="button-style" id="purchaseHistory">Purchase History</a>
+    <div class="fields--2">
     <a href="resetPassword.php" class="button-style">Change Password</a>
+    <a href=".updateInfo.php" class="button-style">Update Shipping & Payment Info</a>
+    </div>
+    <div class="fields--2">
     <a href="" class="button-style" id="signOut">Sign Out</a>
     <a href="" class="button-style button-style-red" id="deleteUser">Terminate Account</a>
-    <br>
-    <a href="purchaseHistory.php" class="button-style" id="purchaseHistory">Purchase History</a>
+    </div>
 </div>
 
 </body>

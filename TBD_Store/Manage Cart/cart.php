@@ -7,7 +7,7 @@ session_start();
 <h1>Your Cart</h1>
 <div class="form-container">
 <table id="cartItems" class="cart">
-    <tr><th>Items</th></tr>
+    <tr><th>Item(s)</th><th>Details</th><th>Remove</th></tr>
 </table>
     <p><strong>SUBTOTAL: &euro; </strong><span id="subtotal"></span></p>
 

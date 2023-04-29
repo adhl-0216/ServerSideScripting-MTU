@@ -5,33 +5,10 @@ $status = $_POST['sqlFunc'];
 //$_SESSION['status'] = $status;
 dbConnect($pdo);
 
-if ($status == "insert") insertInventory();
 if ($status == "update") updateInventory();
 if ($status == "select") selectInventory();
 if ($status == "delete") deleteInventory();
 
-function insertInventory(){
-    global $pdo;
-    try {
-        if (isset($_POST['data'])) {
-            $product = $_POST['data'];
-            $sqlInsert = 'INSERT INTO tbd_store.inventory (PRODUCT_TYPE, PRODUCT_NAME, PRODUCT_DESCRIPTION, UK_SIZE, PRICE, QUANTITY) VALUES (:prodType, :prodName, :prodDesc, :ukSize, :price, :quantity)';
-            $pStmt = $pdo->prepare($sqlInsert);
-            $pStmt->bindValue(':prodType', $product['PRODUCT_TYPE']);
-            $pStmt->bindValue(':prodName', $product['PRODUCT_NAME']);
-            $pStmt->bindValue(':prodDesc', $product['PRODUCT_DESCRIPTION']);
-            $pStmt->bindValue(':ukSize', $product['UK_SIZE']);
-            $pStmt->bindValue(':price', $product['PRICE']);
-            $pStmt->bindValue(':quantity', $product['QUANTITY']);
-            $pStmt->execute();
-            echo $pStmt->rowCount();
-        }
-    }
-    catch (PDOException $ex) {
-        $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();
-        echo $errMsg;
-    }
-}
 function selectInventory(){
     global $pdo;
 
@@ -50,6 +27,7 @@ function selectInventory(){
                 'UK_SIZE'=>$row['UK_SIZE'],
                 'PRICE'=>$row['PRICE'],
                 'QUANTITY'=>$row['QUANTITY'],
+                'PRODUCT_IMG'=>$row['PRODUCT_IMG'],
             );
             $inventory[] = $product;
         }

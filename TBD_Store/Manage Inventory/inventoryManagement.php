@@ -16,53 +16,65 @@ include "../css/myHeader.html";?>
     </tr>
 </table>
 <h2>Add Product</h2>
-  <form method="post">
-    <table id="addProduct">
-      <tr><td>PRODUCT TYPE</td>
-        <td>
-          <label>
-            <select name="PRODUCT_TYPE">
-              <option value="FW">Footwear</option>
-              <option value="JR">Jersey</option>
-              <option value="EQ">Equipment</option>
-              <option value="AC">Accessories</option>
-            </select>
-          </label></td>
-      </tr>
+<form id="addProduct" enctype="multipart/form-data" method="POST" action=".uploadProductIMG.php">
+    <table>
+        <tr><td>PRODUCT TYPE</td>
+            <td>
+                <label>
+                    <select id="prodType" name="PRODUCT_TYPE">
+                        <option value="FW">Footwear</option>
+                        <option value="JR">Jersey</option>
+                        <option value="AC">Accessories</option>
+                    </select>
+                </label></td>
+        </tr>
 
-      <tr><td>PRODUCT NAME</td>
+        <tr>
+            <td>
+                <label>PRODUCT IMAGE</label>
+            </td>
+            <td>
+                <input type="file" id="imgFile" name="PRODUCT_IMG" accept="image/*" required/>
+                <button id="btnUploadImg">UPLOAD</button>
+            </td>
+        </tr>
+
+        <tr><td>PRODUCT NAME</td>
         <td><label>
-          <input type="text" name="PRODUCT_NAME" required>
+          <input type="text" id="prodName" name="PRODUCT_NAME" required/>
         </label></td>
-      </tr>
+        </tr>
 
-      <tr><td>PRODUCT DESCRIPTION</td>
+        <tr><td>PRODUCT DESCRIPTION</td>
           <td><label>
-              <input type="text" name="PRODUCT_DESCRIPTION">
+              <input type="text" name="PRODUCT_DESCRIPTION" required/>
           </label></td>
-      </tr>
+        </tr>
 
-    <tr><td>UK SIZE</td>
+        <tr><td>UK SIZE</td>
         <td><label>
-            <input type="number" name="UK_SIZE" min="5.5" step="0.5" max="12" required>
+            <input type="number" name="UK_SIZE" min="5.5" step="0.5" max="12" required/>
         </label></td>
-    </tr>
+        </tr>
 
-      <tr><td>PRICE</td>
+        <tr><td>PRICE</td>
         <td><label>
-          <input type="number" name="PRICE" min="0">
+          <input type="number" name="PRICE" min="0" required/>
         </label></td>
-      </tr>
+        </tr>
 
-      <tr><td>QUANTITY</td>
+        <tr><td>QUANTITY</td>
         <td><label>
-          <input type="number" name="QUANTITY" step="1" pattern="[0-9]" min="0" required>
+          <input type="number" name="QUANTITY" step="1" pattern="[0-9]" min="0" required/>
         </label></td>
-      </tr>
+        </tr>
 
     </table>
-      <input type="submit" name="INSERT" value="ADD STOCK">
+
+      <input type="submit" id="btnAddStock" name="INSERT" value="ADD STOCK" disabled>
   </form>
+
+
 </body>
 <script async src=".inventoryManagement.js"></script>
 <?php include "../css/myFooter.html";?>

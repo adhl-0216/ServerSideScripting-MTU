@@ -15,24 +15,27 @@
                 let purchaseHistory = JSON.parse(data)
                 let div = $("div.purchaseHistory")
                 if (purchaseHistory.length > 0) {
-                    div.append($("<table>" +
-                        "<tr><th>Purchase Date</th><th>Total(&euro;)</th><th>Details</th></tr>" +
+                    div.append($("<table class='purchaseHistory' " +
+                        "tr><th>Purchase Date</th><th>Total(&euro;)</th><th>Details</th></tr>" +
                         "</table>"))
+                    for (const purchase of purchaseHistory) {
+                        let tr = $("<tr></tr>")
+                        tr.attr("id", purchase['saleID'])
+
+                        let saleDate = $("<td></td>")
+                        saleDate.text(purchase['saleDate'])
+                        tr.append(saleDate)
+
+                        let totalSale = $("<td></td>")
+                        totalSale.text(purchase['totalSale'])
+                        tr.append(totalSale)
+
+                        div.children("table").append(tr)
+                    }
+                }else {
+                    div.append("No purchase history.")
                 }
-                for (const purchase of purchaseHistory) {
-                    let tr = $("<tr></tr>")
-                    tr.attr("id", purchase['saleID'])
 
-                    let saleDate = $("<td></td>")
-                    saleDate.text(purchase['saleDate'])
-                    tr.append(saleDate)
-
-                    let totalSale = $("<td></td>")
-                    totalSale.text(purchase['totalSale'])
-                    tr.append(totalSale)
-
-                    div.children("table").append(tr)
-                }
             }
         }).then(function () {
             let allRows = $("tr")

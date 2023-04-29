@@ -5,18 +5,6 @@
 <h1>New User Sign Up</h1>
 <form id="signUpForm" class="userDetails">
   <table>
-    <tr><td>FIRST NAME</td>
-      <td>
-        <label><input type="text" name="FIRST_NAME" required></label>
-      </td>
-    </tr>
-
-    <tr><td>LAST NAME</td>
-      <td>
-        <label><input type="text" name="LAST_NAME" required></label>
-      </td>
-    </tr>
-
     <tr><td>EMAIL</td>
       <td>
         <label><input type="email" name="USER_EMAIL" required></label>

@@ -28,8 +28,6 @@ if (isset($_POST['userID'])){
         $result = $stmt;
         $row = $result->fetch();
         $userInfo = array(
-            'fName'=>$row['FIRST_NAME'],
-            'lName'=>$row['LAST_NAME'],
             'userEmail'=>$row['USER_EMAIL'],
             'userPsw'=>$row['USER_PASSWORD'],
             'regDate'=>$row['REGISTRATION_DATE'],

@@ -25,8 +25,6 @@ $(function (){
             success: function (response){
                 let userDetails = JSON.parse(response);
                 // console.log(userDetails);
-                $("#firstName").val(userDetails['fName']);
-                $("#lastName").val(userDetails['lName']);
                 $("#userEmail").val(userDetails['userEmail']);
                 $("#regDate").append(userDetails['regDate'].substring(0,11));
             }

@@ -17,8 +17,11 @@ if (isset($_SESSION['checkOutItems'])){
     $stmt->execute();
     $row=$stmt->fetch();
     $saleId = $row['LAST_INSERT_ID()'];
-    $keys = array_keys(json_decode($_SESSION['checkOutItems'], true));
+
+    $keys = array_keys($checkOutItems);
+    echo count($keys);
     foreach ( $keys as $key){
+        echo "here";
         try {
 
             $sqlUpdate = "UPDATE tbd_store.inventory SET QUANTITY=QUANTITY-:quantity WHERE PRODUCT_ID=:prodID";
@@ -26,7 +29,6 @@ if (isset($_SESSION['checkOutItems'])){
             $stmt->bindValue(":prodID", $key);
             $stmt->bindValue(":quantity", $checkOutItems[strval($key)]);
             $stmt->execute();
-
 
             $sqlSelect = "SELECT PRICE FROM tbd_store.inventory WHERE PRODUCT_ID=:prodID";
             $stmt = $pdo->prepare($sqlSelect);
@@ -43,7 +45,7 @@ if (isset($_SESSION['checkOutItems'])){
             $stmt->bindValue(":cost", $price*$checkOutItems[strval($key)]);
             $stmt->execute();
 
-
+            echo $key;
 
         }catch (PDOException $ex){
             $errMsg = $ex->getMessage().'; '.$ex->getTraceAsString();

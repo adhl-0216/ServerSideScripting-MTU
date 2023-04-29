@@ -125,31 +125,35 @@ $(function (){
 
     refreshTable();
 
-    $("[name='INSERT']").click(function (e){
+    $("#btnUploadImg").click(function (e){
         e.preventDefault();
-        let inputsNotEmpty = true;
-        let prodDetails = $("#addProduct :input:not(select)");
-        prodDetails.each(function (){
-                if($(this).val() === "") {
-                    inputsNotEmpty = false;
-                    alert("All Fields Must Be Entered.");
-                    return false;
-                }
-        })
-
-        if(inputsNotEmpty) {
-            let jsonData = {
-                "PRODUCT_TYPE": $("[name='PRODUCT_TYPE']").val(),
-                "PRODUCT_NAME": prodDetails[0].value,
-                "PRODUCT_DESCRIPTION": prodDetails[1].value,
-                "UK_SIZE": prodDetails[2].value,
-                "PRICE": prodDetails[3].value,
-                "QUANTITY": prodDetails[4].value
+        let formData = new FormData();
+        formData.append('PRODUCT_IMG',$("#imgFile")[0].files[0]);
+        formData.append('PRODUCT_TYPE',$("#prodType").val());
+        $.ajax({
+            url: ".uploadProductIMG.php",
+            type:"POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log(response);
+                $("#btnAddStock").prop("disabled", false)
             }
+        })
+    })
+
+    let form = $("form#addProduct").submit(function (e){
+        e.preventDefault();
+        let valid = this.reportValidity();
+
+        if(valid) {
+
+            let data = $(this).serializeArray()
             $.ajax({
-                url: '.inventorySQL.php',
+                url: '.SQL_insertInventory.php',
                 type: "POST",
-                data: {sqlFunc: "insert", data: jsonData},
+                data: data,
                 success: function (response) {
                     if (response > 0) {
                         alert("Great success! inserted " + $("[name='PRODUCT_NAME']").val());
@@ -158,7 +162,19 @@ $(function (){
                         alert(response)
                     }
                 }
+            }).then(function () {
+                let prodImg = $("#imgFile").val().toString().substring(12);
+
+                let prodName = $("#prodName").val();
+                let jsonData = {prodImg: prodImg, prodName: prodName}
+                console.log(jsonData);
+                $.post(".SQL_insertInventory.php", jsonData, function (response) {
+                    console.log(response);
+                })
+
             })
         }
     });
+
+
 });

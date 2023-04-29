@@ -2,10 +2,12 @@ $(function (){
     let userID;
     $.get("../Manage User/.userSession.php", function (data){
         if (data === "N/A"){
-            location.href = "../Homepage/index.php";
+            location.href = "../Manage User/signIn.php";
+        }else{
+            userID = data;
         }
-        userID = data;
     })
+
     refreshCart();
 
     $("#btnClear").click(function (e){
@@ -18,25 +20,22 @@ $(function (){
 
     $("#btnCheckOut").click(function (e) {
         e.preventDefault();
-        let prodIDs = [];
-        $(".btnRemove").each(function (){
-            prodIDs.push($(this).attr("name"))
-        })
-
+        let prodIDs = $(".itemText");
         let checkOutItems = {}
-        for (const prodID of prodIDs) {
+        prodIDs.each(function () {
+            let prodID = $(this).attr("id")
             if (checkOutItems[prodID]){
                 checkOutItems[prodID] += 1;
             }else {
                 checkOutItems[prodID] = 1;
             }
-        }
-
+        })
+        console.log(prodIDs)
         console.log(checkOutItems)
 
         let subtotal = $("#subtotal").text();
 
-        let url = ".checkOut.php";
+        let url = "checkOut.php";
 
         let  form = $(document.createElement('form'));
         $(form).attr("action", url);
@@ -73,7 +72,6 @@ function refreshCart() {
         cartItems = JSON.parse(data);
         console.log(cartItems.length)
         if (cartItems.length === 0) {
-            console.log("empty")
             table.remove();
             $("div.form-container").remove();
             $("footer").before($("<div>No items in the cart.</div>"));
@@ -89,9 +87,8 @@ function refreshCart() {
             }
         }).then(function (){
             for (const prodDetail of prodDetails) {
-                let imgID = prodDetail['prodType'] + prodDetail['prodID'].padStart(2, '0');
-                let itemText = prodDetail['prodName'] + "<br>" + prodDetail['prodDesc'] + "<br>" + "UK Size: " + prodDetail['ukSize'] + " &euro;<span class='price'>" + prodDetail['price'] + "</span>";
-                table.append(`<tr><td><img src="../rsc/${prodDetail['prodType']}/${imgID}.webp" alt="${prodDetail['prodName']}" title="${prodDetail['prodID']}"></td><td><label class="form-control">${itemText}</td><td><input type="button" class="btnRemove" name="${prodDetail['prodID']}" value="REMOVE" /></label></td></tr>`);
+                let itemText = `<p>${prodDetail['prodName']}</p><p>${prodDetail['prodDesc']}</p><p>UK Size: ${prodDetail['ukSize']}</p><p>&euro;<span class='price'>${prodDetail['price']}</span></p>`;
+                table.append(`<tr><td><img src="../rsc/${prodDetail['prodType']}/${prodDetail['prodImg']}" alt="${prodDetail['prodName']}" title="${prodDetail['prodName']}"></td><td class="itemText" id="${prodDetail['prodID']}">${itemText}</td><td><label class="form-control"><input type="button" class="button button-style-red" name="${prodDetail['prodID']}" value="REMOVE" /></label></td></tr>`);
             }
         }).then(function (){
             let totalPrice = 0 ;

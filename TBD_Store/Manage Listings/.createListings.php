@@ -19,6 +19,7 @@ try {
             'UK_SIZE'=>$row['UK_SIZE'],
             'PRICE'=>$row['PRICE'],
             'QUANTITY'=>$row['QUANTITY'],
+            'PRODUCT_IMG'=>$row['PRODUCT_IMG'],
         );
         $inventory[] = $product;
     }

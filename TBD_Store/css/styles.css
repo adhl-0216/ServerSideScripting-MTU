@@ -70,6 +70,7 @@ table {
     grid-template-columns: 1fr 1fr 1fr;
 }
 
+
 .button {
     background-color: #8dbdff;
     text-transform: uppercase;
@@ -240,23 +241,28 @@ nav ul {
     background-color: white;
 }
 /*Purchase History*/
-table, tr, th, td {
-    border-spacing: 0;
+.purchaseHistory td,th {
     border: 1px solid black;
 }
 
-/*Cart.php*/
+
+
+/*view listings*/
 .productItem{
     list-style-type: none;
-    display: inline-flex;
+    display: inline-grid;
     padding: 8px;
     border-radius: 6px;
+
 }
 
 .productItem:hover {
     background: lightgrey;
 }
 
+
+
+/*Cart*/
 table.cart{
     margin-bottom: 20px;
 }
@@ -265,21 +271,12 @@ table.cart{
     text-align: left;
 }
 
-.cart, tr, td{
+.cart {
     border: 1px black solid;
 }
 
-.cart input[type="checkbox"] {
-    margin: 0;
-    background-color: #fff;
-    font: inherit;
-    color: currentColor;
-    width: 2em;
-    height: 2em;
-    border: 0.15em solid currentColor;
-    border-radius: 0.15em;
-    display: grid;
-    place-content: center;
+td.itemText {
+    width: 20rem;
 }
 
 .cart td img {
@@ -287,9 +284,6 @@ table.cart{
     height: 6em;
 }
 
-.cart tr {
-    display: flow;
-}
 
 /*checkOut.php*/
 p.checkOut_subtotal {
